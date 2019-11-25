@@ -751,9 +751,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="48" />
-    <option name="y" value="41" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="77" />
+    <option name="y" value="42" />
     <option name="width" value="1603" />
     <option name="height" value="997" />
   </component>
