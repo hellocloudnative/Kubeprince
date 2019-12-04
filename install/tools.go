@@ -323,7 +323,7 @@ func SendPackage(url string, hosts []string, packName string) {
 	kubeLocal := fmt.Sprintf("/root/%s", pkg)
 	var kubeCmd string
 	if packName == "kube" {
-		kubeCmd = "cd /root/kube/shell && sh init.sh"
+		kubeCmd = "cd /root/kube/&& sh init.sh"
 	} else {
 		kubeCmd = fmt.Sprintf("cd /root/%s && docker load -i images.tar", packName)
 	}
@@ -368,6 +368,6 @@ func KubeadmConfigInstall(){
 		}
 		templateData = string(TemplateFromTemplateContent(string(fileData)))
 	}
-	cmd := "echo \"" + templateData + "\" > /root/kubeadm-config.yaml"
+	cmd := "echo \"" + templateData + "\" > /root/kube/conf/kubeadm-config.yaml"
 	Cmd(Masters[0], cmd)
 }

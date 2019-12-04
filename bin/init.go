@@ -25,6 +25,6 @@ func init()  {
 	initCmd.Flags().StringVar(&install.VIP, "vip", "10.103.97.2", "virtual ip")
 	initCmd.Flags().StringSliceVar(&install.Masters, "master", []string{}, "kubernetes masters")
 	initCmd.Flags().StringSliceVar(&install.Nodes, "node", []string{}, "kubernetes nodes")
-	initCmd.Flags().StringVar(&install.PkgUrl, "pkg-url", "", "download offline package url, or file localtion ex. /root/kube1.16.2.tar.gz")
-	initCmd.Flags().StringVar(&install.Version, "version", "v1.14.1", "version is kubernetes version")
+	initCmd.Flags().StringVar(&install.PkgUrl, "pkg-url", "", "download offline package url, or file localtion ex. /root/kube1.16.3.tar.gz")
+	initCmd.Flags().StringVar(&install.Version, "version", "v1.16.3", "version is kubernetes version")
 }

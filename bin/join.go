@@ -25,5 +25,5 @@ func init() {
 	joinCmd.Flags().StringSliceVar(&install.Masters, "master", []string{}, "kubernetes masters")
 	joinCmd.Flags().StringSliceVar(&install.Nodes, "node", []string{}, "kubernetes nodes")
 
-	joinCmd.Flags().StringVar(&install.PkgUrl, "pkg-url", "", "download offline pakage url, or file localtion ex. /root/kube1.14.1.tar.gz")
+	joinCmd.Flags().StringVar(&install.PkgUrl, "pkg-url", "", "download offline pakage url, or file localtion ex.")
 }
