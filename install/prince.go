@@ -47,19 +47,19 @@ func (p *PrinceInstaller)Command(version string,name CommandType)(cmd string){
 }
 func (p *PrinceInstaller)InstallMaster0(){
 	cmd := fmt.Sprintf("echo %s %s >> /etc/hosts", IpFormat(Masters[0]), ApiServer)
-	Cmd(Masters[0], cmd)
+	Cmdout(Masters[0], cmd)
 	cmd = p.Command(Version,InitMaster)
-	output:=Cmd(Masters[0],cmd)
+	output:=Cmdout(Masters[0],cmd)
 	if output == nil {
 		logger.Error("[%s]kubernetes install is error.please clean and uninstall.", Masters[0])
 		os.Exit(1)
 	}
 	decodeOutput(output)
 	cmd = `mkdir -p /root/.kube && cp /etc/kubernetes/admin.conf /root/.kube/config`
-	output = Cmd(Masters[0], cmd)
+	Cmdout(Masters[0], cmd)
 
 	cmd = `kubectl apply -f /root/kube/conf/calico.yaml || true`
-	output = Cmd(Masters[0], cmd)
+	Cmdout(Masters[0], cmd)
 }
 
 func (p *PrinceInstaller) GeneratorToken() {
@@ -72,12 +72,12 @@ func (p *PrinceInstaller) JoinMasters() {
 	cmd := p.Command(Version, JoinMaster)
 	for _, master := range Masters[1:] {
 		cmdHosts := fmt.Sprintf("echo %s %s >> /etc/hosts", IpFormat(Masters[0]), ApiServer)
-		Cmd(master, cmdHosts)
+		Cmdout(master, cmdHosts)
 		Cmd(master, cmd)
 		cmdHosts = fmt.Sprintf(`sed "s/%s/%s/g" -i /etc/hosts`, IpFormat(Masters[0]), IpFormat(master))
-		Cmd(master, cmdHosts)
+		Cmdout(master, cmdHosts)
 		cmd = `mkdir -p /root/.kube && cp /etc/kubernetes/admin.conf /root/.kube/config`
-		Cmd(master, cmd)
+		Cmdout(master, cmd)
 
 	}
 }
@@ -100,10 +100,10 @@ func (p *PrinceInstaller) JoinNodes() {
 				cmdHosts = fmt.Sprintf("echo %s %s >> /etc/hosts", IpFormat(Masters[0]), ApiServer)
 			}
 
-			Cmd(node, cmdHosts)
+			Cmdout(node, cmdHosts)
 			cmd := p.Command(Version, JoinNode)
 			//cmd += masters
-			Cmd(node, cmd)
+			Cmdout(node, cmd)
 
 		}(node)
 	}
@@ -124,19 +124,24 @@ func (p *PrinceInstaller)Clean() {
 	}
 	wg.Wait()
 }
+func printcleaninfo(host string){
+	logger.Info("[%s]clean  kubernetes  config  completed:[ok]", host)
+}
 func clean(host string) {
 	cmd := "kubeadm reset -f && modprobe -r ipip  && lsmod"
-	Cmd(host, cmd)
+	Cmdout(host, cmd)
 	cmd = "rm -rf ~/.kube/ && rm -rf /etc/kubernetes/"
-	Cmd(host, cmd)
+	Cmdout(host, cmd)
+	logger.Info("[%s]clean  kubernetes  config  completed:[ok]", host)
 	cmd = "rm -rf /etc/systemd/system/kubelet.service.d && rm -rf /etc/systemd/system/kubelet.service"
-	Cmd(host, cmd)
+	Cmdout(host, cmd)
 	cmd = "rm -rf /usr/bin/kube* && rm -rf /usr/bin/crictl"
-	Cmd(host, cmd)
+	Cmdout(host, cmd)
 	cmd = "rm -rf /etc/cni && rm -rf /opt/cni"
-	Cmd(host, cmd)
+	Cmdout(host, cmd)
 	cmd = "rm -rf /var/lib/etcd && rm -rf /var/etcd "
-	Cmd(host, cmd)
+	Cmdout(host, cmd)
 	cmd = fmt.Sprintf("rm -rf /tmp/* && sed -i \"/%s/d\" /etc/hosts ", ApiServer)
-	Cmd(host, cmd)
+	Cmdout(host, cmd)
+	printcleaninfo(host)
 }

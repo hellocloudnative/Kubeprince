@@ -35,7 +35,7 @@ func decodeOutput(output []byte) {
 	s0 := string(output)
 	slice := strings.Split(s0, "kubeadm join")
 	slice1 := strings.Split(slice[1], "Please note")
-	logger.Info("[globals]join command is: %s", slice1[0])
+	//logger.Info("[globals]join command is: %s", slice1[0])
 	decodeJoinCmd(slice1[0])
 }
 //  192.168.0.200:6443 --token 9vr73a.a8uxyaju799qwdjv --discovery-token-ca-cert-hash sha256:7c2e69131a36ae2a042a339b33381c6d0d43887e2de83720eff5359e26aec866 --experimental-control-plane --certificate-key f8902e114ef118304e561c3ecd4d0b543adc226b7a07f675f56564185ffe0c07
@@ -140,12 +140,39 @@ func Cmd(host string,cmd string)([]byte){
 	}
 	return  b
 }
+
+//shell命令
+func Cmdout(host string,cmd string)([]byte){
+	session,err :=Connect(User,Password,PrivateKeyFile,host)
+	defer func() {
+		if r := recover(); r != nil {
+			logger.Error("[%s]Error create ssh session failed,%s", host, err)
+		}
+	}()
+	if err !=nil{
+		panic(1)
+	}
+	defer session.Close()
+	b,err :=session.CombinedOutput(cmd)
+	logger.Debug("[%s]command result is:[ok]",host)
+	defer func() {
+		if r := recover(); r != nil {
+			logger.Error("[%s]Error exec command failed: %s", host, err)
+			os.Exit(1)
+		}
+	}()
+	if err !=nil{
+		panic(1)
+
+	}
+	return  b
+}
 //判断远程文件是否存在
 func RemoteFilExist(host, remoteFilePath string)(bool) {
 	remoteFileName :=path.Base(remoteFilePath)
 	remoteFileDirName := path.Dir(remoteFilePath)
 	remoteFileCommand := fmt.Sprintf("ls -l %s | grep %s | wc -l", remoteFileDirName, remoteFileName)
-	data :=bytes.Replace(Cmd(host,remoteFileCommand),[]byte("\r"), []byte(""), -1)
+	data :=bytes.Replace(Cmdout(host,remoteFileCommand),[]byte("\r"), []byte(""), -1)
 	data = bytes.Replace(data, []byte("\n"), []byte(""), -1)
 	count,err :=strconv.Atoi(string(data))
 	defer func() {
@@ -332,20 +359,20 @@ func SendPackage(url string, hosts []string, packName string) {
 		wm.Add(1)
 		go func(host string) {
 			defer wm.Done()
-			logger.Debug("[%s]please wait for tar zxf exec", host)
+			logger.Debug("[%s]please wait for decompressing ......", host)
 			if RemoteFilExist(host, kubeLocal) {
 				logger.Warn("[%s]SendPackage: file is exist", host)
-				Cmd(host, localCmd)
+				Cmdout(host, localCmd)
 			} else {
 				if isHttp {
 					go WatchFileSize(host, kubeLocal, GetFileSize(url))
-					Cmd(host, remoteCmd)
+					Cmdout(host, remoteCmd)
 				} else {
 					Copy(host, url, kubeLocal)
-					Cmd(host, localCmd)
+					Cmdout(host, localCmd)
 				}
 			}
-			Cmd(host, kubeCmd)
+			Cmdout(host, kubeCmd)
 		}(host)
 	}
 	wm.Wait()
@@ -369,5 +396,5 @@ func KubeadmConfigInstall(){
 		templateData = string(TemplateFromTemplateContent(string(fileData)))
 	}
 	cmd := "echo \"" + templateData + "\" > /root/kube/conf/kubeadm-config.yaml"
-	Cmd(Masters[0], cmd)
+	Cmdout(Masters[0], cmd)
 }

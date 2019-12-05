@@ -8,18 +8,18 @@ func BuildInit()  {
 	x.CheckCalid()
 	x.Print()
 	x.SendPackage("kube")
-	x.Print("SendPackage")
+	x.Print("Initialization of the installation package is completed !")
 	x.KubeadmConfigInstall()
-	x.Print("K8Sprinceconfiginstall")
+	x.Print("kubeprince Configuration load completed !")
 	x.InstallMaster0()
-	x.Print("InstallMaster0")
+	x.Print("master deployment completed !")
 	if len(Masters) > 1 {
 		x.JoinMasters()
-		x.Print("SendPackage", "KubeadmConfigInstall", "InstallMaster0", "JoinMasters")
+		x.Print( "Adding the master is completed !")
 	}
 	if len(Nodes) > 0 {
 		x.JoinNodes()
-		x.Print("SendPackage", "KubeadmConfigInstall", "InstallMaster0", "JoinMasters", "JoinNodes")
+		x.Print( "Adding the node is completed !")
 	}
 	x.PrintFinish()
 
