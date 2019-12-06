@@ -5,7 +5,7 @@
   - Debian 9
   - CentOS 7
   - RHEL 7
-  - Fedora 25/26 (尽力服务)
+  - Fedora 25/26
   - HypriotOS v1.0.1+
   - Container Linux (针对1800.6.0 版本测试)
 - 每台机器 2 GB 或更多的 RAM (如果少于这个数字将会影响您应用的运行内存)

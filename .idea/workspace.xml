@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="" />
+    <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,11 +153,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="3234">
+              <caret line="147" selection-start-line="147" selection-end-line="147" />
             </state>
           </provider>
         </entry>
@@ -199,7 +201,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/install/tools.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="352">
@@ -291,6 +293,7 @@
         <option value="$PROJECT_DIR$/install/config.go" />
         <option value="$PROJECT_DIR$/install/tools.go" />
         <option value="$PROJECT_DIR$/install/prince.go" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -331,16 +334,6 @@
             <path>
               <item name="Kubeprince" type="b2602c69:ProjectViewProjectNode" />
               <item name="Kubeprince" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Kubeprince" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Kubeprince" type="462c0819:PsiDirectoryNode" />
-              <item name="bin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Kubeprince" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Kubeprince" type="462c0819:PsiDirectoryNode" />
-              <item name="install" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Kubeprince" type="b2602c69:ProjectViewProjectNode" />
@@ -684,13 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/install/install.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
@@ -747,6 +733,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
           <caret line="394" column="9" lean-forward="true" selection-start-line="394" selection-start-column="9" selection-end-line="394" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3234">
+          <caret line="147" selection-start-line="147" selection-end-line="147" />
         </state>
       </provider>
     </entry>
