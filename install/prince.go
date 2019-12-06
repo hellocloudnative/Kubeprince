@@ -16,22 +16,21 @@ func (p *PrinceInstaller) KubeadmConfigInstall(){
 	KubeadmConfigInstall()
 }
 
+
 func (p *PrinceInstaller)Command(version string,name CommandType)(cmd string){
 	cmds :=make(map[CommandType]string)
 	cmds= map[CommandType]string{
 		InitMaster: `kubeadm init --config=/root/kube/conf/kubeadm-config.yaml --experimental-upload-certs`,
 		JoinMaster: fmt.Sprintf("kubeadm join %s:6443 --token %s --discovery-token-ca-cert-hash %s --experimental-control-plane --certificate-key %s", IpFormat(Masters[0]), JoinToken, TokenCaCertHash, CertificateKey),
-		JoinNode:   fmt.Sprintf("kubeadm join %s:6443 --token %s --discovery-token-ca-cert-hash %s", IpFormat(Masters[0]), JoinToken, TokenCaCertHash),
+		JoinNode:   fmt.Sprintf("kubeadm join %s:6443 --token %s --discovery-token-ca-cert-hash %s", VIP, JoinToken, TokenCaCertHash),
 
 	}
 	//other version todo
 	if VersionToInt(version) >= 115{
 		cmds[InitMaster] = `kubeadm init --config=/root/kube/conf/kubeadm-config.yaml --upload-certs`
-		cmds[JoinMaster] = fmt.Sprintf("kubeadm join %s:6443 --token %s --discovery-token-ca-cert-hash %s --control-plane --certificate-key %s", IpFormat(Masters[0]), JoinToken, TokenCaCertHash, CertificateKey)
+		cmds[JoinMaster] = fmt.Sprintf("kubeadm join %s:6443 --token %s --discovery-token-ca-cert-hash %s --control-plane --certificate-key %s", ApiServer, JoinToken, TokenCaCertHash, CertificateKey)
 	}
-	if len(Masters)>=3{
-		cmds[JoinNode]= fmt.Sprintf("kubeadm join %s:6443 --token %s --discovery-token-ca-cert-hash %s", VIP, JoinToken, TokenCaCertHash)
-	}
+
 	v,ok :=cmds[name]
 	defer func() {
 		if r := recover(); r != nil {
@@ -73,7 +72,7 @@ func (p *PrinceInstaller) JoinMasters() {
 	for _, master := range Masters[1:] {
 		cmdHosts := fmt.Sprintf("echo %s %s >> /etc/hosts", IpFormat(Masters[0]), ApiServer)
 		Cmdout(master, cmdHosts)
-		Cmd(master, cmd)
+		Cmdout(master, cmd)
 		cmdHosts = fmt.Sprintf(`sed "s/%s/%s/g" -i /etc/hosts`, IpFormat(Masters[0]), IpFormat(master))
 		Cmdout(master, cmdHosts)
 		cmd = `mkdir -p /root/.kube && cp /etc/kubernetes/admin.conf /root/.kube/config`
@@ -83,27 +82,28 @@ func (p *PrinceInstaller) JoinMasters() {
 }
 //join node
 func (p *PrinceInstaller) JoinNodes() {
-	//var masters string
+	var masters string
 	var wg sync.WaitGroup
 	var cmdHosts string
-	//for _, master := range Masters {
-	//	masters += fmt.Sprintf(" --master %s:6443", IpFormat(master))
-	//}
+	for _, master := range Masters {
+		masters += fmt.Sprintf(" --master %s:6443", IpFormat(master))
+	}
 
 	for _, node := range Nodes {
 		wg.Add(1)
 		go func(node string) {
 			defer wg.Done()
-			if len(Masters)>=3{
+			if len(Masters)>=0{
 				cmdHosts = fmt.Sprintf("echo %s %s >> /etc/hosts", VIP, ApiServer)
 			}else {
 				cmdHosts = fmt.Sprintf("echo %s %s >> /etc/hosts", IpFormat(Masters[0]), ApiServer)
 			}
 
 			Cmdout(node, cmdHosts)
+			Lvscreate(node)
 			cmd := p.Command(Version, JoinNode)
-			//cmd += masters
 			Cmdout(node, cmd)
+			LvsInstall(node)
 
 		}(node)
 	}

@@ -22,6 +22,7 @@ var (
 	Password       string
 	PrivateKeyFile string
 	KubeadmFile    string
+	LvsFile        string
 	Version        string
 	Kustomize      bool
 	ApiServer      string
@@ -76,14 +77,59 @@ ipvs:
 //	fmt.Println(kubeadmConfig())
 //}
 
+
+const  princelvsyaml CommandType =(`
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    component: kubeprince-lvs
+    tier: control-plane
+  name: kubeprince-lvs
+  namespace: kube-system
+spec:
+  containers:
+  - command:
+    - /usr/bin/lvscare
+    - care
+    - --vs
+    - {{.VIP}}:6443
+    - --health-path
+    - /healthz
+    - --health-schem
+    - https
+    - --rs
+    {{range .Masters -}}
+    - {{.}}:6443
+    {{end -}}
+    image: kubeprince-lvs:latest
+    imagePullPolicy: IfNotPresent
+    name: kubeprince-lvs
+    securityContext:
+      privileged: true
+  hostNetwork: true
+  priorityClassName: system-cluster-critical
+status: {}`)
+
 func kubeadmConfig() (string) {
 	var sb strings.Builder
 	sb.Write([]byte(Templateyaml))
 	return sb.String()
 }
+func lvsConfig() (string) {
+	var sb strings.Builder
+	sb.Write([]byte(princelvsyaml))
+	return sb.String()
+}
+
 func  Template()([]byte){
 	return  TemplateFromTemplateContent(kubeadmConfig())
 }
+
+func  Template2()([]byte){
+	return  TemplateFromTemplateContent(lvsConfig())
+}
+
 func TemplateFromTemplateContent(templateContent string) []byte {
 	tmpl, err := template.New("text").Parse(templateContent)
 	defer func() {

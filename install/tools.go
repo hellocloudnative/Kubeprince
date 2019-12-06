@@ -398,3 +398,35 @@ func KubeadmConfigInstall(){
 	cmd := "echo \"" + templateData + "\" > /root/kube/conf/kubeadm-config.yaml"
 	Cmdout(Masters[0], cmd)
 }
+
+func LvsInstall(node string){
+	var templateData string
+	if  LvsFile == ""{
+		templateData =string(Template2())
+
+	}else {
+		fileData, err := ioutil.ReadFile(LvsFile)
+		defer func() {
+			if r := recover(); r != nil {
+				logger.Error("[globals]template file read failed:", err)
+			}
+		}()
+		if err != nil {
+			panic(1)
+		}
+		templateData = string(TemplateFromTemplateContent(string(fileData)))
+	}
+
+	cmd := "mkdir -p /etc/kubernetes/manifests/ && echo \"" + templateData + "\" > /etc/kubernetes/manifests/kubeprince-lvs.yaml  "
+	Cmdout(node, cmd)
+
+}
+func Lvscreate(node string){
+	var masters string
+	for _, master := range Masters {
+		masters += fmt.Sprintf(" --rs %s:6443", IpFormat(master))
+	}
+	cmd:=fmt.Sprintf("docker run   --rm  -it    --network  host   --privileged=true     fanux/lvscare:latest      /bin/lvscare  create    --vs %s:6443",VIP)
+	cmd+=masters
+	Cmdout(node,cmd)
+}
