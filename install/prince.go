@@ -48,7 +48,7 @@ func (p *PrinceInstaller)InstallMaster0(){
 	cmd := fmt.Sprintf("echo %s %s >> /etc/hosts", IpFormat(Masters[0]), ApiServer)
 	Cmdout(Masters[0], cmd)
 	cmd = p.Command(Version,InitMaster)
-	output:=Cmd(Masters[0],cmd)
+	output:=Cmdout(Masters[0],cmd)
 	if output == nil {
 		logger.Error("[%s]kubernetes install is error.please clean and uninstall.", Masters[0])
 		os.Exit(1)
@@ -63,7 +63,7 @@ func (p *PrinceInstaller)InstallMaster0(){
 
 func (p *PrinceInstaller) GeneratorToken() {
 	cmd := `kubeadm token create --print-join-command`
-	output := Cmd(Masters[0], cmd)
+	output := Cmdout(Masters[0], cmd)
 	decodeOutput(output)
 }
 //join master
