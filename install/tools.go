@@ -115,7 +115,6 @@ func WatchFileSize(host, filename string, size int) {
 
 //shell命令
 func Cmd(host string,cmd string)([]byte){
-	logger.Info("[%s]exec cmd is : %s", host, cmd)
 	session,err :=Connect(User,Password,PrivateKeyFile,host)
 	defer func() {
 		if r := recover(); r != nil {
