@@ -7,18 +7,19 @@ import (
 )
 
 const (success  string = "🎉🎉🎉")
-func(p *PrinceInstaller)Print(process ...string){
+func(x *PrinceInstaller)Print(process ...string){
 	if len(process) == 0 {
-		configJson,_:= json.Marshal(p)
+		configJson,_:= json.Marshal(x)
 		logger.Info("[globals]kubeprince config is:",string(configJson))
 	}else {
 		var sb  strings.Builder
 		for _,v :=range process{
+			sb.Write([]byte("==>"))
 			sb.Write([]byte(v))
 		}
 		logger.Debug(sb.String())
 	}
 }
-func (p *PrinceInstaller) PrintFinish() {
+func (x *PrinceInstaller) PrintFinish() {
 	logger.Info("kubeprince install successful. ",success)
 }
