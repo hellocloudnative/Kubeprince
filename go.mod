@@ -6,6 +6,7 @@ require (
 	github.com/pkg/errors v0.8.1
 	github.com/pkg/sftp v1.13.2
 	github.com/spf13/cobra v1.2.1
+	github.com/vishvananda/netlink v1.1.0
 	github.com/wonderivan/logger v1.0.0
 	go.etcd.io/etcd v0.0.0-20200716221620-18dfb9cca345 // indirect
 	go.uber.org/multierr v1.6.0 // indirect

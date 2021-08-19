@@ -81,28 +81,28 @@ end:
 
 
 //Clean clean cluster.
-func (s *PrinceClean) Clean() {
+func (i *PrinceClean) Clean() {
 	var wg sync.WaitGroup
 	//s 是要删除的数据
 	//全局是当前的数据
-	if len(s.Nodes) > 0 {
+	if len(i.Nodes) > 0 {
 		//1. 再删除nodes
-		for _, node := range s.Nodes {
+		for _, node := range i.Nodes {
 			wg.Add(1)
 			go func(node string) {
 				defer wg.Done()
-				s.cleanNode(node)
+				i.cleanNode(node)
 			}(node)
 		}
 		wg.Wait()
 	}
-	if len(s.Masters) > 0 {
+	if len(i.Masters) > 0 {
 		//2. 先删除master
-		for _, master := range s.Masters {
+		for _, master := range i.Masters {
 			wg.Add(1)
 			go func(master string) {
 				defer wg.Done()
-				s.cleanMaster(master)
+				i.cleanMaster(master)
 			}(master)
 		}
 		wg.Wait()
@@ -110,12 +110,12 @@ func (s *PrinceClean) Clean() {
 
 }
 
-func (s *PrinceClean) cleanNode(node string) {
+func (i *PrinceClean) cleanNode(node string) {
 	cleanRoute(node)
 	clean(node)
 	//remove node
 	Nodes = SliceRemoveStr(Nodes, node)
-	if !s.cleanAll {
+	if !i.cleanAll {
 		logger.Debug("clean node in master")
 		if len(Masters) > 0 {
 			hostname := isHostName(Masters[0], node)
@@ -177,6 +177,8 @@ func clean(host string) {
 	_ = SSHConfig.CmdAsync(host, cmd)
 	//clean kubeprince in /usr/bin/ except exec kubeprince
 	cmd = fmt.Sprint("ps -ef |grep -v 'grep'|grep kubeprince >/dev/null || rm -rf /usr/bin/kubeprince")
+	_ = SSHConfig.CmdAsync(host, cmd)
+	cmd = fmt.Sprint("iptables -F &&  iptables -X &&  iptables -F -t nat &&  iptables -X -t nat")
 	_ = SSHConfig.CmdAsync(host, cmd)
 }
 
