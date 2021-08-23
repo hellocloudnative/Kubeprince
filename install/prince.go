@@ -55,7 +55,7 @@ func (s *PrinceInstaller) Sendkubeprince() {
 }
 
 //KubeadmConfigInstall
-func (p *PrinceInstaller) KubeadmConfigInstall() {
+func (p *PrinceInstaller)  KubeadmConfigInstall() {
 	var templateData string
 	if KubeadmFile == "" {
 		templateData = string(Template())

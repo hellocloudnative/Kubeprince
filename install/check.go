@@ -56,7 +56,14 @@ func (p  *PrinceInstaller) CheckValid() {
 		if dockerExist == "yes" {
 			errList = append(errList, h)
 		}
-
+		containerdExist := SSHConfig.CmdToString(h, "command -v containerd &> /dev/null && echo yes || :", "")
+		if containerdExist == "yes" {
+			errList = append(errList, h)
+		}
+		podmanExist := SSHConfig.CmdToString(h, "command -v podmanExist &> /dev/null && echo yes || :", "")
+		if podmanExist == "yes" {
+			errList = append(errList, h)
+		}
 		if len(errList) >= 1 {
 			os.Exit(-1)
 		}

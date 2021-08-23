@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bin/route.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/clean.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/clean.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Kubeprince" beforeDir="false" afterPath="$PROJECT_DIR$/Kubeprince" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/check.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/check.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/prince.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/prince.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/calico.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/calico.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/net/calico_yaml.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/calico_yaml.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +52,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/bin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/install" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -55,11 +60,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/install" />
       <recent name="$PROJECT_DIR$/bin" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/net" />
       <recent name="$PROJECT_DIR$/cert" />
-      <recent name="$PROJECT_DIR$/pkg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/install" />
@@ -196,10 +201,10 @@
       <screen x="0" y="25" width="1920" height="1055" />
     </state>
     <state x="522" y="210" key="SettingsEditor/0.25.1920.1055@0.25.1920.1055" timestamp="1629178418509" />
-    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup" timestamp="1629178427839">
+    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup" timestamp="1629452652904">
       <screen x="0" y="25" width="1920" height="1055" />
     </state>
-    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup/0.25.1920.1055@0.25.1920.1055" timestamp="1629178427839" />
+    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup/0.25.1920.1055@0.25.1920.1055" timestamp="1629452652904" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -231,7 +236,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/install/config.go</url>
-          <line>440</line>
+          <line>443</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">

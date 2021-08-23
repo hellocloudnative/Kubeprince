@@ -135,6 +135,7 @@ const (
 	// CriSocket
 	DefaultDockerCRISocket     = "/var/run/dockershim.sock"
 	DefaultContainerdCRISocket = "/run/containerd/containerd.sock"
+	DefaultiSuladCRISocket = "/var/run/isulad.sock"
 )
 
 const InitTemplateTextV1beta1 = string(`apiVersion: kubeadm.k8s.io/v1beta1
@@ -142,6 +143,8 @@ kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: {{.Master0}}
   bindPort: 6443
+nodeRegistration:
+  criSocket: /var/run/isulad.sock
 ---
 apiVersion: kubeadm.k8s.io/v1beta1
 kind: ClusterConfiguration
@@ -539,11 +542,12 @@ func JoinTemplateFromTemplateContent(templateContent, ip string) []byte {
 	envMap["TokenDiscovery"] = JoinToken
 	envMap["TokenDiscoveryCAHash"] = TokenCaCertHash
 	envMap["VIP"] = VIP
-	if For120(Version) {
-		CriSocket = DefaultContainerdCRISocket
-	} else {
-		CriSocket = DefaultDockerCRISocket
-	}
+	//if For120(Version) {
+	//	CriSocket = DefaultContainerdCRISocket
+	//} else {
+	//	CriSocket = DefaultDockerCRISocket
+	//}
+	CriSocket = DefaultiSuladCRISocket
 	envMap["CriSocket"] = CriSocket
 	var buffer bytes.Buffer
 	_ = tmpl.Execute(&buffer, envMap)
