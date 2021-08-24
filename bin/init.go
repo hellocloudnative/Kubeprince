@@ -84,7 +84,7 @@ func init()  {
 	initCmd.Flags().StringSliceVar(&install.CertSANS, "cert-sans", []string{}, "kubernetes apiServerCertSANs ")
 	initCmd.Flags().StringVar(&install.PkgUrl, "pkg-url", "", "download offline package url, or file localtion ex. /root/ucc-kube1.18.5-amd64.tar.gz")
 	initCmd.Flags().StringVar(&install.Version, "version", "v1.18.5", "version is kubernetes version")
-	initCmd.Flags().StringVar(&install.LvscareImage.Image, "lvscare-image", "fanux/lvscare", "lvscare image name")
-	initCmd.Flags().StringVar(&install.LvscareImage.Tag, "lvscare-tag", "latest", "lvscare image tag name")
+	initCmd.Flags().StringVar(&install.LvsuccImage.Image, "lvsucc-image", "harbor.sh.deepin.com/lvsucc", "lvscare image name")
+	initCmd.Flags().StringVar(&install.LvsuccImage.Tag, "lvsucc-tag", "latest", "lvsucc image tag name")
 	initCmd.Flags().IntVar(&install.Vlog, "vlog", 0, "kubeadm log level")
 }

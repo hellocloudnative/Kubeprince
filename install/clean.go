@@ -137,7 +137,7 @@ func (s *PrinceClean) cleanMaster(master string) {
 			_ = SSHConfig.CmdAsync(Masters[0], fmt.Sprintf(cmd, strings.TrimSpace(hostname)))
 		}
 		//清空所有的nodes的数据
-		yaml := ipvs.LvsStaticPodYaml(VIP, Masters, LvscareImage)
+		yaml := ipvs.LvsStaticPodYaml(VIP, Masters, LvsuccImage)
 		var wg sync.WaitGroup
 		for _, node := range Nodes {
 			wg.Add(1)

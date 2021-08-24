@@ -34,13 +34,13 @@ func (p *KubeprinceUpgrade) SendPackage() {
 	all := append(p.Masters, p.Nodes...)
 	pkg := path.Base(p.NewPkgUrl)
 	var kubeHook string
-	if For120(Version) {
-		// TODO update need load modprobe -- br_netfilter modprobe -- bridge.
-		kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (ctr -n=k8s.io image import ../images/images.tar || true) && cp -f ../bin/* /usr/bin/ ", pkg)
-	} else {
-		kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (docker load -i ../images/images.tar || true) && cp -f ../bin/* /usr/bin/ ", pkg)
-
-	}
+	//if For120(Version) {
+	//	kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (ctr -n=k8s.io image import ../images/images.tar || true) && cp -f ../bin/* /usr/bin/ ", pkg)
+	//} else {
+	//	kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (docker load -i ../images/images.tar || true) && cp -f ../bin/* /usr/bin/ ", pkg)
+	//
+	//}
+	kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (for image_name in $(ls ../images/);do isula  load   -i  ../images/${image_name} || true;done) && cp -f ../bin/* /usr/bin/ ", pkg)
 
 	PkgUrl = SendPackage(pkg, all, "/root", nil, &kubeHook)
 }
@@ -385,7 +385,7 @@ func (s *PrinceInstaller) JoinNodes() {
 			_ = SSHConfig.CmdAsync(node, ipvsCmd) // create ipvs rules before we join node
 			cmd := s.Command(Version, JoinNode)
 			//create lvscare static pod
-			yaml := ipvs.LvsStaticPodYaml(VIP, Masters, LvscareImage)
+			yaml := ipvs.LvsStaticPodYaml(VIP, Masters, LvsuccImage)
 			_ = SSHConfig.CmdAsync(node, cmd)
 			_ = SSHConfig.Cmd(node, "mkdir -p /etc/kubernetes/manifests")
 			SSHConfig.CopyConfigFile(node, "/etc/kubernetes/manifests/kube-sealyun-lvscare.yaml", []byte(yaml))

@@ -14,6 +14,7 @@ import (
 	"strconv"
 	"strings"
 	"gopkg.in/yaml.v2"
+	"lvsucc/care"
 )
 
 const defaultConfigPath = "/.kubeprince"
@@ -43,9 +44,9 @@ type PrinceConfig struct {
 	//certs location
 	CertPath     string
 	CertEtcdPath string
-	//lvscare images
-	LvscareName string
-	LvscareTag  string
+	//lvsucc images
+	LvsuccName string
+	LvsuccTag  string
 }
 
 type PrinceInstaller struct {
@@ -91,7 +92,9 @@ var (
 	Interface string
 	//criSocket
 	CriSocket string
-	LvscareImage ipvs.LvscareImage
+
+	Ipvs         care.LvsCare
+	LvsuccImage ipvs.LvsuccImage
 
 	CertPath     = cert.KubeprinceConfigDir + "/pki"
 	CertEtcdPath = cert.KubeprinceConfigDir + "/pki/etcd"
@@ -133,8 +136,8 @@ const (
 	KUBESCHEDULERCONFIGFILE  = "/etc/kubernetes/scheduler.conf"
 
 	// CriSocket
-	DefaultDockerCRISocket     = "/var/run/dockershim.sock"
-	DefaultContainerdCRISocket = "/run/containerd/containerd.sock"
+	//DefaultDockerCRISocket     = "/var/run/dockershim.sock"
+	//DefaultContainerdCRISocket = "/run/containerd/containerd.sock"
 	DefaultiSuladCRISocket = "/var/run/isulad.sock"
 )
 
@@ -400,8 +403,8 @@ func (x *PrinceConfig) Load(path string) (err error) {
 	CertPath = x.CertPath
 	CertEtcdPath = x.CertEtcdPath
 	//lvscare
-	LvscareImage.Image = x.LvscareName
-	LvscareImage.Tag = x.LvscareTag
+	LvsuccImage.Image = x.LvsuccName
+	LvsuccImage.Tag = x.LvsuccTag
 	return
 }
 
@@ -627,8 +630,8 @@ func (x *PrinceConfig) ShowDefaultConfig() {
 	x.ApiServerCertSANs = []string{"apiserver.cluster.local", "127.0.0.1"}
 	x.CertPath = home + "/.kubeprince/pki"
 	x.CertEtcdPath = home + "/.kubeprince/pki/etcd"
-	x.LvscareName = "fanux/lvscare"
-	x.LvscareTag = "latest"
+	x.LvsuccName = "harbor.sh.deepin.com/lvsucc"
+	x.LvsuccTag = "latest"
 
 	y, err := yaml.Marshal(x)
 	if err != nil {
@@ -667,8 +670,8 @@ func (x *PrinceConfig) Dump(path string) {
 	x.CertPath = CertPath
 	x.CertEtcdPath = CertEtcdPath
 	//lvscare
-	x.LvscareName = LvscareImage.Image
-	x.LvscareTag = LvscareImage.Tag
+	x.LvsuccName = LvsuccImage.Image
+	x.LvsuccTag = LvsuccImage.Tag
 
 	y, err := yaml.Marshal(x)
 	if err != nil {

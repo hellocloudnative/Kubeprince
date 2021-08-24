@@ -41,7 +41,7 @@ func joinMastersFunc(joinMasters []string) {
 	x.JoinMasters(joinMasters)
 	//master join to MasterIPs
 	Masters = append(Masters, joinMasters...)
-	x.lvscare()
+	x.lvsucc()
 
 }
 
@@ -77,15 +77,15 @@ func (s *PrinceInstaller) sendKubeConfigFile(hosts []string, kubeFile string) {
 	wg.Wait()
 }
 
-func (s *PrinceInstaller) lvscare() {
+func (s *PrinceInstaller) lvsucc() {
 	var wg sync.WaitGroup
 	for _, node := range s.Nodes {
 		wg.Add(1)
 		go func(node string) {
 			defer wg.Done()
-			yaml := ipvs.LvsStaticPodYaml(VIP, Masters, LvscareImage)
-			_ = SSHConfig.Cmd(node, "rm -rf  /etc/kubernetes/manifests/kube-sealyun-lvscare* || :")
-			SSHConfig.CopyConfigFile(node, "/etc/kubernetes/manifests/kube-sealyun-lvscare.yaml", []byte(yaml))
+			yaml := ipvs.LvsStaticPodYaml(VIP, Masters, LvsuccImage)
+			_ = SSHConfig.Cmd(node, "rm -rf  /etc/kubernetes/manifests/kube-lvsucc* || :")
+			SSHConfig.CopyConfigFile(node, "/etc/kubernetes/manifests/kube-lvsucc.yaml", []byte(yaml))
 		}(node)
 	}
 
