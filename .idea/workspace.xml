@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bin/lvs.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Kubeprince" beforeDir="false" afterPath="$PROJECT_DIR$/Kubeprince" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/init.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/clean.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/clean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/join.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/join.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/prince.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/prince.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ipvs/lvscare.go" beforeDir="false" afterPath="$PROJECT_DIR$/ipvs/lvsucc.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ipvs/lvscare_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/k8s/utlis_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/net_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

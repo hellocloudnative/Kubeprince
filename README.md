@@ -1,3 +1,5 @@
+## 特性：一键安装集群，默认支持iSulad
+
 ## 安装前提条件
 
 - 一台或多台运行着下列系统的机器:
@@ -62,7 +64,7 @@ kubeadm把证书时间写死了，所以需要定制把它改成100年
 
 - 官方同步服务器时间
 - 主机名不可重复
-- 安装并启动docker(没有会自动安装docker)
+- 安装并启动iSulad(没有会自动安装iSulad)
 - 配置免密或者统所有节点密码一致
 
 
@@ -75,8 +77,8 @@ kubeprince init --master 192.168.0.2 \
     --node 192.168.0.5 \
     --user root \
     --password your-server-password \
-    --version v1.16.3 \
-    --pkg-url /root/kube1.16.3.tar.gz
+    --version v1.18.5 \
+    --pkg-url /root/kube1.18.5.tar.gz
 ```
 
 
@@ -90,8 +92,8 @@ kubeprince init --master 192.168.0.2 \
     --node 192.168.0.5 \
     --user root \
     --password your-server-password \
-    --version v1.16.3 \
-    --pkg-url /root/kube1.16.3.tar.gz
+    --version v1.18.5 \
+    --pkg-url /root/kube1.1.18.5.tar.gz
 ```
 
 参数含义：
@@ -118,7 +120,7 @@ kubeprince join
     --node 192.168.0.5 \
     --user root \
     --password your-server-password \
-    --pkg-url /root/kube1.16.3.tar.gz
+    --pkg-url /root/kube1.18.5.tar.gz
 ```
 
 ### 清理
