@@ -64,7 +64,8 @@ func (p  *PrinceInstaller) CheckValid() {
 		if podmanExist == "yes" {
 			errList = append(errList, h)
 		}
-		if len(errList) >= 1 {
+
+		if len(errList) >= 4 {
 			os.Exit(-1)
 		}
 	}

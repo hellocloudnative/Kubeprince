@@ -68,12 +68,12 @@ func DownloadFile(location string) (filePATH, md5 string) {
 //
 func downloadFile(location string) (filePATH, md5 string) {
 	if _, isUrl := isUrl(location); isUrl {
-		absPATH := "/tmp/sealos/" + path.Base(location)
+		absPATH := "/tmp/kubeprince/" + path.Base(location)
 		if !cmd.IsFileExist(absPATH) {
 			//generator download cmd
 			dwnCmd := downloadCmd(location)
 			//os exec download command
-			cmd.Cmd("/bin/sh", "-c", "mkdir -p /tmp/sealos && cd /tmp/sealos && "+dwnCmd)
+			cmd.Cmd("/bin/sh", "-c", "mkdir -p /tmp/kubeprince && cd /tmp/kubeprince && "+dwnCmd)
 		}
 		location = absPATH
 	}
