@@ -3,12 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Kubeprince" beforeDir="false" afterPath="$PROJECT_DIR$/Kubeprince" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/check.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/check.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/dowload.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/dowload.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/prince.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/prince.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/calico.go" beforeDir="false" afterPath="$PROJECT_DIR$/net/calico.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net/calico_yaml.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/init.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -197,10 +192,10 @@
       <screen x="0" y="25" width="1920" height="1055" />
     </state>
     <state x="522" y="210" key="SettingsEditor/0.25.1920.1055@0.25.1920.1055" timestamp="1629769520503" />
-    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup" timestamp="1629955629144">
+    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup" timestamp="1630388295497">
       <screen x="0" y="25" width="1920" height="1055" />
     </state>
-    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup/0.25.1920.1055@0.25.1920.1055" timestamp="1629955629144" />
+    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup/0.25.1920.1055@0.25.1920.1055" timestamp="1630388295497" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
