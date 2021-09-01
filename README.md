@@ -83,6 +83,7 @@ kubeprince init --master 192.168.0.2 \
     --version v1.18.5 \
     --pkg-url /root/ucc-kube1.18.5-amd64.tar.gz
 
+```
 参数含义：
 
 ```
