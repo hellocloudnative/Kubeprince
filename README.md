@@ -1,18 +1,20 @@
+## 概要设计
+![image-20210901152230166](https://cdn.jsdelivr.net/gh/hellocloudnative/PicGoimages@main/202109/image-20210901152230166.png)
+##节点部署流程图
+![image-20210901150732606](https://cdn.jsdelivr.net/gh/hellocloudnative/PicGoimages@main/202109/image-20210901150732606.png)
+
 ## 特性：一键安装集群，默认支持iSulad
 
 ## 安装前提条件
 
 - 一台或多台运行着下列系统的机器:
+  - Uos 20
   - Ubuntu 16.04+
   - Debian 9
   - CentOS 7
   - RHEL 7
-  - Fedora 25/26
-  - HypriotOS v1.0.1+
-  - Container Linux (针对1800.6.0 版本测试)
 - 每台机器 2 GB 或更多的 RAM (如果少于这个数字将会影响您应用的运行内存)
 - 2 CPU 核心或更多
-
 
 
 ### Master 节点
@@ -34,9 +36,7 @@
 
 ## kubeprince特性与优势：
 
-- 支持离线安装，工具与资源包（二进制程序 配置文件 镜像 yaml文件等）分离,这样不同版本替换不同离线包即可
-
-- 证书延期
+- 支持离线安装，工具与资源包（二进制程序 配置文件 镜像 yaml文件等）分离
 
 - 使用简单
 
@@ -44,19 +44,6 @@
 
 - 内核负载均衡
 
-
-
-## 为什么不使用ansilbe
-
-二进制文件工具，没有任何依赖，文件分发与远程命令都通过调用sdk实现所以不依赖其它任何东西
-
-
-
-## 定制kubeadm
-
-kubeadm把证书时间写死了，所以需要定制把它改成100年
-
-做本地负载时修改kubeadm代码是最方便的，因为在join时我们需要做两个事，第一join之前先创建好ipvs规则，第二创建static pod，如果这块不去定制kubeadm就把报静态pod目录已存在的错误，忽略这个错误很不优雅。 而且kubeadm中已经提供了一些很好用的sdk供我们去实现这个功能。
 
 
 
@@ -78,7 +65,7 @@ kubeprince init --master 192.168.0.2 \
     --user root \
     --password your-server-password \
     --version v1.18.5 \
-    --pkg-url /root/kube1.18.5.tar.gz
+    --pkg-url /root/ucc-kube1.18.5-amd64.tar.gz
 ```
 
 
@@ -93,8 +80,7 @@ kubeprince init --master 192.168.0.2 \
     --user root \
     --password your-server-password \
     --version v1.18.5 \
-    --pkg-url /root/kube1.1.18.5.tar.gz
-```
+    --pkg-url /root/ucc-kube1.18.5-amd64.tar.gz
 
 参数含义：
 
@@ -120,31 +106,22 @@ kubeprince join
     --node 192.168.0.5 \
     --user root \
     --password your-server-password \
-    --pkg-url /root/kube1.18.5.tar.gz
+    --pkg-url /root/ucc-kube1.18.5-amd64.tar.gz
 ```
 
 ### 清理
 
 ```shell
-kubeprince clean \
-    --master 192.168.0.2 \
-    --master 192.168.0.3 \
-    --master 192.168.0.4 \
-    --node 192.168.0.5 \
-    --user root \
-    --password your-server-password
+kubeprince clean --all
 ```
-
 
 
 #### 后续更新
 
 1.完善命令行功能，做到极简快速。
 
-2.增加云原生应用部署
+2.添加配置文件部署选项。
 
-3.完善日志功能
-
-4.添加配置文件部署选项。
+3.多种cni插件选择
 
 
