@@ -71,6 +71,7 @@ func init()  {
 	initCmd.Flags().StringVar(&install.KubeadmFile, "kubeadm-config", "", "kubeadm-config.yaml template file")
 	initCmd.Flags().StringVar(&install.ApiServer, "apiserver", "apiserver.cluster.local", "apiserver domain name")
 	initCmd.Flags().StringVar(&install.VIP, "vip", "10.103.97.2", "virtual ip")
+	initCmd.Flags().StringVar(&install.Containers, "containers", "isulad", "isulad, docker..")
 	initCmd.Flags().StringVar(&install.Repo, "repo", "harbor.sh.deepin.com/amd64", "choose a container registry to pull control plane images from")
 	initCmd.Flags().StringVar(&install.PodCIDR, "podcidr", "100.64.0.0/10", "Specify range of IP addresses for the pod network")
 	initCmd.Flags().StringVar(&install.SvcCIDR, "svccidr", "10.96.0.0/12", "Use alternative range of IP address for service VIPs")

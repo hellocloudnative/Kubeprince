@@ -9,6 +9,7 @@ import (
 	"github.com/wonderivan/logger"
 	"html/template"
 	"io/ioutil"
+	v1 "k8s.io/api/core/v1"
 	"os"
 	"regexp"
 	"strconv"
@@ -103,6 +104,7 @@ var (
 	EtcdKey      = cert.KubeprinceConfigDir + "/pki/etcd/healthcheck-client.key"
 	// network type, calico or flannel etc..
 	Network string
+	Containers string
 )
 
 type metadata struct {
@@ -230,13 +232,13 @@ controlPlane:
 nodeRegistration:
   criSocket: {{.CriSocket}}`)
 
-const InitTemplateTextV1bate2 = string(`apiVersion: kubeadm.k8s.io/v1beta2
+const InitTemplateTextV1bata2 = string(`apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: {{.Master0}}
   bindPort: 6443
 nodeRegistration:
-  criSocket: /run/containerd/containerd.sock
+  criSocket: /run/docker.sock
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
@@ -326,11 +328,7 @@ func (p *PrinceInstaller) Command(version string, name CommandType) (cmd string)
 		cmds[JoinNode] = "kubeadm join --config=/root/kubeadm-join-config.yaml " + vlogToStr()
 	}
 
-	// version >= 1.16.x support kubeadm init --skip-phases=addon/kube-proxy
-	// version <= 115
-	// kubectl -n kube-system delete ds kube-proxy
-	// # Run on each node:
-	// iptables-restore <(iptables-save | grep -v KUBE)
+
 	if p.Network == "cilium" {
 		if VersionToInt(version) >= 116 {
 			cmds[InitMaster] = `kubeadm init --skip-phases=addon/kube-proxy --config=/root/kubeadm-config.yaml --upload-certs` + vlogToStr()
@@ -505,10 +503,10 @@ func printlnJoinKubeadmConfig() {
 
 func kubeadmConfig() string {
 	var sb strings.Builder
-	// kubernetes gt 1.20, use Containerd instead of docker
-	if For120(Version) {
-		sb.Write([]byte(InitTemplateTextV1bate2))
-	} else {
+
+	if Containers=="docker" {
+		sb.Write([]byte(InitTemplateTextV1bata2))
+	} else if Containers=="isulad" {
 		sb.Write([]byte(InitTemplateTextV1beta1))
 	}
 

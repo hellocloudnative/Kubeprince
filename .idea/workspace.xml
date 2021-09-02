@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/bin/init.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/config.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -222,7 +223,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/install/config.go</url>
-          <line>446</line>
+          <line>444</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -244,6 +245,11 @@
           <url>file://$PROJECT_DIR$/api/sets/string.go</url>
           <line>20</line>
           <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/install/config.go</url>
+          <line>234</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
