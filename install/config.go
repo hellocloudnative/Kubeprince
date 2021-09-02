@@ -238,7 +238,7 @@ localAPIEndpoint:
   advertiseAddress: {{.Master0}}
   bindPort: 6443
 nodeRegistration:
-  criSocket: /run/docker.sock
+  criSocket: /var/run/docker.sock
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
