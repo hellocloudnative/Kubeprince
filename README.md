@@ -6,7 +6,15 @@
 ## 节点部署流程图
 ![image-20210901150732606](https://cdn.jsdelivr.net/gh/hellocloudnative/PicGoimages@main/202109/image-20210901150732606.png)
 
-## 特性：一键安装集群，默认支持iSulad
+## 特性一：一键安装集群，默认支持iSulad
+## 特性二：支持国产全硬件，全国产CPU架构
+| 架构 | 是否支持   |
+| :--- | :------ | 
+| Amd64  | ✅ | 
+| Arm64  | ✅ | 
+| Mips64  | ✅ | 
+| loongarch64 | ✅ | 
+| Sw64  | ✅ | 
 
 ## 安装前提条件
 
