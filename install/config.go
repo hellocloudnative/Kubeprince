@@ -9,7 +9,6 @@ import (
 	"github.com/wonderivan/logger"
 	"html/template"
 	"io/ioutil"
-	v1 "k8s.io/api/core/v1"
 	"os"
 	"regexp"
 	"strconv"
