@@ -54,7 +54,6 @@
 | Amd64  | ✅ | 
 | Arm64  | ✅ | 
 | Mips64  | ✅ | 
-| loongarch64 | ✅ | 
 | Sw64  | ✅ | 
 
 
