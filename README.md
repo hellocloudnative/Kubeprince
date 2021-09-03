@@ -6,15 +6,6 @@
 ## 节点部署流程图
 ![image-20210901150732606](https://cdn.jsdelivr.net/gh/hellocloudnative/PicGoimages@main/202109/image-20210901150732606.png)
 
-## 特性一：一键安装集群，默认支持iSulad
-## 特性二：支持国产全硬件，全国产CPU架构
-| 架构 | 是否支持   |
-| :--- | :------ | 
-| Amd64  | ✅ | 
-| Arm64  | ✅ | 
-| Mips64  | ✅ | 
-| loongarch64 | ✅ | 
-| Sw64  | ✅ | 
 
 ## 安装前提条件
 
@@ -46,6 +37,7 @@
 | TCP  | Inbound | 30000-32767 | NodePort Services** | All                 |
 
 ## kubeprince特性与优势：
+- 一键安装集群，默认支持iSulad
 
 - 支持离线安装，工具与资源包（二进制程序 配置文件 镜像 yaml文件等）分离
 
@@ -55,6 +47,15 @@
 
 - 内核负载均衡
 
+- 支持国产全硬件，全国产CPU架构
+
+| 架构 | 是否支持   |
+| :--- | :------ | 
+| Amd64  | ✅ | 
+| Arm64  | ✅ | 
+| Mips64  | ✅ | 
+| loongarch64 | ✅ | 
+| Sw64  | ✅ | 
 
 
 

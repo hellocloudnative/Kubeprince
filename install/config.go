@@ -137,7 +137,7 @@ const (
 	KUBESCHEDULERCONFIGFILE  = "/etc/kubernetes/scheduler.conf"
 
 	// CriSocket
-	//DefaultDockerCRISocket     = "/var/run/dockershim.sock"
+	 DefaultDockerCRISocket     = "/var/run/dockershim.sock"
 	//DefaultContainerdCRISocket = "/run/containerd/containerd.sock"
 	DefaultiSuladCRISocket = "/var/run/isulad.sock"
 )
@@ -231,13 +231,13 @@ controlPlane:
 nodeRegistration:
   criSocket: {{.CriSocket}}`)
 
-const InitTemplateTextV1bata2 = string(`apiVersion: kubeadm.k8s.io/v1beta2
+const InitTemplateTextV1beta2 = string(`apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: {{.Master0}}
   bindPort: 6443
 nodeRegistration:
-  criSocket: /var/run/docker.sock
+  criSocket: /var/run/dockershim.sock
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration
@@ -504,7 +504,7 @@ func kubeadmConfig() string {
 	var sb strings.Builder
 
 	if Containers=="docker" {
-		sb.Write([]byte(InitTemplateTextV1bata2))
+		sb.Write([]byte(InitTemplateTextV1beta2))
 	} else if Containers=="isulad" {
 		sb.Write([]byte(InitTemplateTextV1beta1))
 	}
@@ -547,7 +547,12 @@ func JoinTemplateFromTemplateContent(templateContent, ip string) []byte {
 	//} else {
 	//	CriSocket = DefaultDockerCRISocket
 	//}
-	CriSocket = DefaultiSuladCRISocket
+	if Containers=="isulad"{
+		CriSocket = DefaultiSuladCRISocket
+	}else if Containers=="docker"{
+		CriSocket = DefaultDockerCRISocket
+	}
+
 	envMap["CriSocket"] = CriSocket
 	var buffer bytes.Buffer
 	_ = tmpl.Execute(&buffer, envMap)
