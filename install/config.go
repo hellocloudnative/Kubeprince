@@ -137,7 +137,7 @@ const (
 	KUBESCHEDULERCONFIGFILE  = "/etc/kubernetes/scheduler.conf"
 
 	// CriSocket
-	 DefaultDockerCRISocket     = "/var/run/dockershim.sock"
+	 DefaultDockerCRISocket     = "/var/run/docker.sock"
 	//DefaultContainerdCRISocket = "/run/containerd/containerd.sock"
 	DefaultiSuladCRISocket = "/var/run/isulad.sock"
 )
@@ -236,8 +236,6 @@ kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: {{.Master0}}
   bindPort: 6443
-nodeRegistration:
-  criSocket: /var/run/dockershim.sock
 ---
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: ClusterConfiguration

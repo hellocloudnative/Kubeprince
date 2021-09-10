@@ -21,7 +21,7 @@ import (
 //SendPackage
 func (p *PrinceInstaller) SendPackage() {
 	pkg := path.Base(PkgUrl)
-	kubeHook := fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && bash init.sh", pkg)
+	kubeHook := fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && bash init-%s.sh", pkg,Containers)
 	deletekubectl := `sed -i '/kubectl/d;/kubeprince/d' /root/.bashrc `
 	completion := "echo 'command -v kubectl &>/dev/null && source <(kubectl completion bash)' >> /root/.bashrc && echo '[ -x /usr/bin/kubeprince ] && source <(kubeprince completion bash)' >> /root/.bashrc && source /root/.bashrc"
 	kubeHook = kubeHook + " && " + deletekubectl + " && " + completion
@@ -40,7 +40,12 @@ func (p *KubeprinceUpgrade) SendPackage() {
 	//	kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (docker load -i ../images/images.tar || true) && cp -f ../bin/* /usr/bin/ ", pkg)
 	//
 	//}
-	kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (for image_name in $(ls ../images/);do isula  load   -i  ../images/${image_name};done) && cp -f ../bin/* /usr/bin/ ", pkg)
+	if Containers=="isulad"{
+		kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (for image_name in $(ls ../images/);do isula  load   -i  ../images/${image_name};done) && cp -f ../bin/* /usr/bin/ ", pkg)
+	}else if Containers=="docker"{
+		kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (for image_name in $(ls ../images/);do docker  load   -i  ../images/${image_name};done) && cp -f ../bin/* /usr/bin/ ", pkg)
+
+	}
 
 	PkgUrl = SendPackage(pkg, all, "/root", nil, &kubeHook)
 }

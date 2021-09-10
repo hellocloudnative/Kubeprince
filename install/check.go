@@ -60,7 +60,7 @@ func (p  *PrinceInstaller) CheckValid() {
 		if containerdExist == "yes" {
 			errList = append(errList, h)
 		}
-		podmanExist := SSHConfig.CmdToString(h, "command -v podmanExist &> /dev/null && echo yes || :", "")
+		podmanExist := SSHConfig.CmdToString(h, "command -v podman &> /dev/null && echo yes || :", "")
 		if podmanExist == "yes" {
 			errList = append(errList, h)
 		}
