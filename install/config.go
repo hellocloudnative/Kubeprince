@@ -16,7 +16,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"lvsucc/care"
 )
-
+const defaultKubePath = "/kube"
 const defaultConfigPath = "/.kubeprince"
 const defaultConfigFile = "/config.yaml"
 
@@ -77,6 +77,8 @@ var (
 	ApiServer      string
 	CleanForce bool
 	CleanAll   bool
+	UpdateForce bool
+	UpdateAll   bool
 	Vlog int
 	Repo    string
 	PodCIDR string
@@ -500,7 +502,6 @@ func printlnJoinKubeadmConfig() {
 
 func kubeadmConfig() string {
 	var sb strings.Builder
-
 	if Containers=="docker" {
 		sb.Write([]byte(InitTemplateTextV1beta2))
 	} else if Containers=="isulad" {

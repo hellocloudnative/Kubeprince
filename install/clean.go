@@ -180,6 +180,8 @@ func clean(host string) {
 	_ = SSHConfig.CmdAsync(host, cmd)
 	cmd = fmt.Sprint("iptables -F &&  iptables -X &&  iptables -F -t nat &&  iptables -X -t nat")
 	_ = SSHConfig.CmdAsync(host, cmd)
+	cmd = fmt.Sprint("ipvsadm --clear")
+	_ = SSHConfig.CmdAsync(host, cmd)
 }
 
 func cleanRoute(node string) {

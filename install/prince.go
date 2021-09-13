@@ -63,7 +63,7 @@ func (s *PrinceInstaller) Sendkubeprince() {
 func (p *PrinceInstaller)  KubeadmConfigInstall() {
 	var templateData string
 	if KubeadmFile == "" {
-		templateData = string(Template())
+			templateData = string(Template())
 	} else {
 		fileData, err := ioutil.ReadFile(KubeadmFile)
 		defer func() {
