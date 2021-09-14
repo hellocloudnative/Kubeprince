@@ -106,6 +106,53 @@ kubeprince init --master 192.168.0.2 \
 --pk       ssh私钥地址，配置免密钥默认就是/root/.ssh/id_rsa
 --vip      virtual ip (default "10.103.97.2") 本地负载时虚拟ip，不推荐修改，集群外不可访问
 ```
+```
+├── bin
+│   ├── conntrack
+│   ├── crictl
+│   ├── kubeadm
+│   ├── kubectl
+│   ├── kubelet
+│   └── kubelet-pre-start.sh
+├── conf
+│   ├── 10-kubeadm.conf.docker
+│   ├── 10-kubeadm.conf.isulad
+│   ├── calico.yaml
+│   ├── daemon.json
+│   ├── kubeadm.yaml
+│   └── kubelet.service
+├── docker
+│   └── docker-deb-amd64.tar.gz
+├── images
+│   ├── calico-cni.tar
+│   ├── calico-kube-controllers.tar
+│   ├── calico-node.tar
+│   ├── calico-pod2daemon-flexvol.tar
+│   ├── coredns.tar
+│   ├── etcd.tar
+│   ├── kube-apiserver.tar
+│   ├── kube-controller-manager.tar
+│   ├── kube-proxy.tar
+│   ├── kube-scheduler.tar
+│   ├── lvsucc.tar
+│   └── pause.tar
+├── isulad
+│   ├── cni-plugins-linux-amd64.tar.gz
+│   └── isulad-deb-amd64.tar.gz
+├── Metadata
+├── README.md
+└── shell
+    ├── docker.sh
+    ├── init-docker.sh
+    ├── init-isulad.sh
+    ├── init-kube-docker.sh
+    ├── init-kube-isulad.sh
+    ├── isulad.sh
+    ├── killport.sh
+    ├── master.sh
+    └── update.sh
+
+```
 
 #### 添加node节点
 

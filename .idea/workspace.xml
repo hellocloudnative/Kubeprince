@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bin/update.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/install/update.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/clean.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/clean.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/prince.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/prince.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/upgrade.go" beforeDir="false" afterPath="$PROJECT_DIR$/install/upgrade.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
