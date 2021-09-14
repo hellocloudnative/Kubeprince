@@ -141,7 +141,6 @@ tar包的目录结构对应kube文件夹，如下:
 │   ├── cni-plugins-linux-amd64.tar.gz
 │   └── isulad-deb-amd64.tar.gz
 ├── Metadata
-├── README.md
 └── shell
     ├── docker.sh
     ├── init-docker.sh

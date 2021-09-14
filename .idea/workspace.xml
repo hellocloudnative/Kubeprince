@@ -2,6 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/kube/Metadata" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/bin/kubelet-pre-start.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/conf/10-kubeadm.conf.docker" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/conf/10-kubeadm.conf.isulad" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/conf/calico.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/conf/daemon.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/conf/kubeadm.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/conf/kubelet.service" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/images/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/isulad/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/docker.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/init-docker.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/init-isulad.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/init-kube-docker.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/init-kube-isulad.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/isulad.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/killport.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/master.sh" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/kube/shell/update.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +66,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/kube/isulad" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -54,11 +74,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/kube/isulad" />
+      <recent name="$PROJECT_DIR$/kube/images" />
+      <recent name="$PROJECT_DIR$/kube" />
       <recent name="$PROJECT_DIR$/api" />
       <recent name="$PROJECT_DIR$/pkg/utils" />
-      <recent name="$PROJECT_DIR$/bin" />
-      <recent name="$PROJECT_DIR$/install" />
-      <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/install" />
