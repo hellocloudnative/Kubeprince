@@ -1,0 +1,6 @@
+{
+  "k8sVersion": "v1.18.5",
+  "cniVersion": "v3.14.0",
+  "cniName": "calico"
+}
+

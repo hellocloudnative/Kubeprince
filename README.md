@@ -106,6 +106,7 @@ kubeprince init --master 192.168.0.2 \
 --pk       ssh私钥地址，配置免密钥默认就是/root/.ssh/id_rsa
 --vip      virtual ip (default "10.103.97.2") 本地负载时虚拟ip，不推荐修改，集群外不可访问
 ```
+tar包的目录结构对应kube文件夹，如下:
 ```
 ├── bin
 │   ├── conntrack
