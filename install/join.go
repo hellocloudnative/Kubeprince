@@ -63,7 +63,7 @@ func joinNodesFunc(joinNodes []string) {
 	Nodes = append(Nodes, joinNodes...)
 }
 
-func (s *PrinceInstaller) sendKubeConfigFile(hosts []string, kubeFile string) {
+func (x *PrinceInstaller) sendKubeConfigFile(hosts []string, kubeFile string) {
 	absKubeFile := cert.KubernetesDir + "/" + kubeFile
 	sealosKubeFile := cert.KubeprinceConfigDir + "/" + kubeFile
 	var wg sync.WaitGroup
@@ -77,9 +77,9 @@ func (s *PrinceInstaller) sendKubeConfigFile(hosts []string, kubeFile string) {
 	wg.Wait()
 }
 
-func (s *PrinceInstaller) lvsucc() {
+func (x *PrinceInstaller) lvsucc() {
 	var wg sync.WaitGroup
-	for _, node := range s.Nodes {
+	for _, node := range x.Nodes {
 		wg.Add(1)
 		go func(node string) {
 			defer wg.Done()

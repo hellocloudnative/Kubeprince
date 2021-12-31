@@ -7,14 +7,14 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/wonderivan/logger"
+	"gopkg.in/yaml.v2"
 	"html/template"
 	"io/ioutil"
+	"lvsucc/care"
 	"os"
 	"regexp"
 	"strconv"
 	"strings"
-	"gopkg.in/yaml.v2"
-	"lvsucc/care"
 )
 const defaultKubePath = "/kube"
 const defaultConfigPath = "/.kubeprince"
@@ -67,13 +67,8 @@ var (
 	ApiServerCertSANs []string
 	VIP            string
 	PkgUrl         string
-	//User           string
-	//Password       string
-	//PrivateKeyFile string
 	KubeadmFile    string
-	//LvsFile        string
 	Version        string
-	//Kustomize      bool
 	ApiServer      string
 	CleanForce bool
 	CleanAll   bool
@@ -94,6 +89,8 @@ var (
 	Interface string
 	//criSocket
 	CriSocket string
+	CgroupDriver string
+	KubeadmAPI   string
 
 	Ipvs         care.LvsCare
 	LvsuccImage ipvs.LvsuccImage
@@ -139,12 +136,19 @@ const (
 	KUBESCHEDULERCONFIGFILE  = "/etc/kubernetes/scheduler.conf"
 
 	// CriSocket
-	 DefaultDockerCRISocket     = "/var/run/docker.sock"
+	DefaultDockerCRISocket     = "/var/run/docker.sock"
 	//DefaultContainerdCRISocket = "/run/containerd/containerd.sock"
 	DefaultiSuladCRISocket = "/var/run/isulad.sock"
+	DefaultCgroupDriver        = "cgroupfs"
+	DefaultSystemdCgroupDriver = "systemd"
+
+	KubeadmV1beta1 = "kubeadm.k8s.io/v1beta1"
+	KubeadmV1beta2 = "kubeadm.k8s.io/v1beta2"
+	KubeadmV1beta3 = "kubeadm.k8s.io/v1beta3"
 )
 
-const InitTemplateTextV1beta1 = string(`apiVersion: kubeadm.k8s.io/v1beta1
+const (
+	InitTemplateTextV1beta1 = string(`apiVersion: kubeadm.k8s.io/v1beta1
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: {{.Master0}}
@@ -209,31 +213,7 @@ mode: "ipvs"
 ipvs:
   excludeCIDRs:
   - "{{.VIP}}/32"`)
-
-const JoinCPTemplateTextV1beta2 = string(`apiVersion: kubeadm.k8s.io/v1beta2
-caCertPath: /etc/kubernetes/pki/ca.crt
-discovery:
-  bootstrapToken:
-    {{- if .Master}}
-    apiServerEndpoint: {{.Master0}}:6443
-    {{else}}
-    apiServerEndpoint: {{.VIP}}:6443
-    {{end -}}
-    token: {{.TokenDiscovery}}
-    caCertHashes:
-    - {{.TokenDiscoveryCAHash}}
-  timeout: 5m0s
-kind: JoinConfiguration
-{{- if .Master }}
-controlPlane:
-  localAPIEndpoint:
-    advertiseAddress: {{.Master}}
-    bindPort: 6443
-{{- end}}
-nodeRegistration:
-  criSocket: {{.CriSocket}}`)
-
-const InitTemplateTextV1beta2 = string(`apiVersion: kubeadm.k8s.io/v1beta2
+	InitTemplateTextV1beta2 = string(`apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
 localAPIEndpoint:
   advertiseAddress: {{.Master0}}
@@ -296,6 +276,115 @@ mode: "ipvs"
 ipvs:
   excludeCIDRs:
   - "{{.VIP}}/32"`)
+	JoinCPTemplateText = string(bootstrapTokenDefault +
+		JoinConfigurationDefault +
+		kubeletConfigDefault)
+	bootstrapTokenDefault = `apiVersion: {{.KubeadmApi}}
+caCertPath: /etc/kubernetes/pki/ca.crt
+discovery:
+  bootstrapToken:
+    {{- if .Master}}
+    apiServerEndpoint: {{.Master0}}:6443
+    {{else}}
+    apiServerEndpoint: {{.VIP}}:6443
+    {{end -}}
+    token: {{.TokenDiscovery}}
+    caCertHashes:
+    - {{.TokenDiscoveryCAHash}}
+  timeout: 5m0s
+`
+	JoinConfigurationDefault = `
+kind: JoinConfiguration
+{{- if .Master }}
+controlPlane:
+  localAPIEndpoint:
+    advertiseAddress: {{.Master}}
+    bindPort: 6443
+{{- end}}
+nodeRegistration:
+  criSocket: {{.CriSocket}}
+`
+	kubeletConfigDefault = `
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+authentication:
+  anonymous:
+    enabled: false
+  webhook:
+    cacheTTL: 2m0s
+    enabled: true
+  x509:
+    clientCAFile: /etc/kubernetes/pki/ca.crt
+authorization:
+  mode: Webhook
+  webhook:
+    cacheAuthorizedTTL: 5m0s
+    cacheUnauthorizedTTL: 30s
+cgroupDriver: {{ .CgroupDriver}}
+cgroupsPerQOS: true
+clusterDomain: cluster.local
+configMapAndSecretChangeDetectionStrategy: Watch
+containerLogMaxFiles: 5
+containerLogMaxSize: 10Mi
+contentType: application/vnd.kubernetes.protobuf
+cpuCFSQuota: true
+cpuCFSQuotaPeriod: 100ms
+cpuManagerPolicy: none
+cpuManagerReconcilePeriod: 10s
+enableControllerAttachDetach: true
+enableDebuggingHandlers: true
+enforceNodeAllocatable:
+- pods
+eventBurst: 10
+eventRecordQPS: 5
+evictionHard:
+  imagefs.available: 15%
+  memory.available: 100Mi
+  nodefs.available: 10%
+  nodefs.inodesFree: 5%
+evictionPressureTransitionPeriod: 5m0s
+failSwapOn: true
+fileCheckFrequency: 20s
+hairpinMode: promiscuous-bridge
+healthzBindAddress: 127.0.0.1
+healthzPort: 10248
+httpCheckFrequency: 20s
+imageGCHighThresholdPercent: 85
+imageGCLowThresholdPercent: 80
+imageMinimumGCAge: 2m0s
+iptablesDropBit: 15
+iptablesMasqueradeBit: 14
+kubeAPIBurst: 10
+kubeAPIQPS: 5
+makeIPTablesUtilChains: true
+maxOpenFiles: 1000000
+maxPods: 110
+nodeLeaseDurationSeconds: 40
+nodeStatusReportFrequency: 10s
+nodeStatusUpdateFrequency: 10s
+oomScoreAdj: -999
+podPidsLimit: -1
+port: 10250
+registryBurst: 10
+registryPullQPS: 5
+rotateCertificates: true
+runtimeRequestTimeout: 2m0s
+serializeImagePulls: true
+staticPodPath: /etc/kubernetes/manifests
+streamingConnectionIdleTimeout: 4h0m0s
+syncFrequency: 1m0s
+volumeStatsAggPeriod: 1m0s`
+	ContainerdShell = `if grep "SystemdCgroup = true"  /etc/containerd/config.toml &> /dev/null; then  
+driver=systemd
+else
+driver=cgroupfs
+fi
+echo ${driver}`
+	DockerShell = `driver=$(docker info -f "{{.CgroupDriver}}")
+	echo "${driver}"`
+)
+
 
 
 var (
@@ -354,13 +443,13 @@ func vlogToStr() string {
 }
 
 // JoinTemplate is generate JoinCP nodes configuration by master ip.
-func JoinTemplate(ip string) []byte {
-	return JoinTemplateFromTemplateContent(joinKubeadmConfig(), ip)
+func JoinTemplate(ip string,cgroup string) []byte {
+	return JoinTemplateFromTemplateContent(joinKubeadmConfig(), ip,cgroup)
 }
 
 func joinKubeadmConfig() string {
 	var sb strings.Builder
-	sb.Write([]byte(JoinCPTemplateTextV1beta2))
+	sb.Write([]byte(JoinCPTemplateText))
 	return sb.String()
 }
 
@@ -525,7 +614,8 @@ func  Template()([]byte){
 //	return  TemplateFromTemplateContent(lvsConfig())
 //}
 
-func JoinTemplateFromTemplateContent(templateContent, ip string) []byte {
+func JoinTemplateFromTemplateContent(templateContent, ip string, cgroup string) []byte {
+	setKubeadmAPI(Version)
 	tmpl, err := template.New("text").Parse(templateContent)
 	defer func() {
 		if r := recover(); r != nil {
@@ -549,10 +639,11 @@ func JoinTemplateFromTemplateContent(templateContent, ip string) []byte {
 	if Containers=="isulad"{
 		CriSocket = DefaultiSuladCRISocket
 	}else if Containers=="docker"{
-		CriSocket = DefaultDockerCRISocket
+		CriSocket = ""
 	}
-
+	envMap["KubeadmApi"] = KubeadmAPI
 	envMap["CriSocket"] = CriSocket
+	envMap["CgroupDriver"] = cgroup
 	var buffer bytes.Buffer
 	_ = tmpl.Execute(&buffer, envMap)
 	return buffer.Bytes()

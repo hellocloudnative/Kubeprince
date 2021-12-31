@@ -8,7 +8,7 @@ import (
 // SetHosts set hosts. if can't access to hostName, set /etc/hosts
 func SetHosts(hostIP, hostName string) {
 	cmd := fmt.Sprintf("cat /etc/hosts |grep %s || echo '%s %s' >> /etc/hosts", hostName, IpFormat(hostIP), hostName)
-	SSHConfig.CmdAsync(hostIP, cmd)
+	_ = SSHConfig.CmdAsync(hostIP, cmd)
 }
 
 func (p  *PrinceInstaller) CheckValid() {
@@ -63,10 +63,6 @@ func (p  *PrinceInstaller) CheckValid() {
 		podmanExist := SSHConfig.CmdToString(h, "command -v podman &> /dev/null && echo yes || :", "")
 		if podmanExist == "yes" {
 			errList = append(errList, h)
-		}
-
-		if len(errList) >= 4 {
-			os.Exit(-1)
 		}
 	}
 }

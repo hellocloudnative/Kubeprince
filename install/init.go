@@ -26,11 +26,11 @@ func BuildInit()  {
 	x.CreateKubeconfig()
 	x.InstallMaster0()
 	x.Print("Install","master deployment completed !")
-	if len(Masters) > 1 {
+	if len(masters) > 1 {
 		x.JoinMasters(x.Masters[1:])
 		x.Print( "JoinMasters","Adding the master is completed !")
 	}
-	if len(Nodes) > 0 {
+	if len(nodes) > 0 {
 		x.JoinNodes()
 		x.Print( "Adding the node is completed !")
 	}

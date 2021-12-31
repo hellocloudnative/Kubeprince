@@ -19,20 +19,20 @@ import (
 )
 
 //SendPackage
-func (p *PrinceInstaller) SendPackage() {
+func (x *PrinceInstaller) SendPackage() {
 	pkg := path.Base(PkgUrl)
 	kubeHook := fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && bash init-%s.sh", pkg,Containers)
 	deletekubectl := `sed -i '/kubectl/d;/kubeprince/d' /root/.bashrc `
 	completion := "echo 'command -v kubectl &>/dev/null && source <(kubectl completion bash)' >> /root/.bashrc && echo '[ -x /usr/bin/kubeprince ] && source <(kubeprince completion bash)' >> /root/.bashrc && source /root/.bashrc"
 	kubeHook = kubeHook + " && " + deletekubectl + " && " + completion
-	SendPackage(PkgUrl, p.Hosts,"/root",nil, &kubeHook)
+	SendPackage(PkgUrl, x.Hosts,"/root",nil, &kubeHook)
 }
 
 //传包
 // SendPackage is send new pkg to all nodes.
-func (p *KubeprinceUpgrade) SendPackage() {
-	all := append(p.Masters, p.Nodes...)
-	pkg := path.Base(p.NewPkgUrl)
+func (x *KubeprinceUpgrade) SendPackage() {
+	all := append(x.Masters, x.Nodes...)
+	pkg := path.Base(x.NewPkgUrl)
 	var kubeHook string
 	//if For120(Version) {
 	//	kubeHook = fmt.Sprintf("cd /root && rm -rf kube && tar zxvf %s  && cd /root/kube/shell && rm -f ../bin/kubeprince && (ctr -n=k8s.io image import ../images/images.tar || true) && cp -f ../bin/* /usr/bin/ ", pkg)
@@ -51,17 +51,33 @@ func (p *KubeprinceUpgrade) SendPackage() {
 }
 
 // SendKubeprince  is send the exec kubeprince to /usr/bin/kubeprince
-func (s *PrinceInstaller) Sendkubeprince() {
+func (x *PrinceInstaller) Sendkubeprince() {
 	// send kubeprince first to avoid old version
 	kubeprince := FetchubePrinceAbsPath()
 	beforeHook := "ps -ef |grep -v 'grep'|grep kubeprince >/dev/null || rm -rf /usr/bin/kubeprince"
 	afterHook := "chmod a+x /usr/bin/kubeprince"
-	SendPackage(kubeprince, s.Hosts, "/usr/bin", &beforeHook, &afterHook)
+	SendPackage(kubeprince, x.Hosts, "/usr/bin", &beforeHook, &afterHook)
 }
 
+func (x *PrinceInstaller) getCgroupDriverFromShell(h string) string {
+	var output string
+	if For120(Version) {
+		cmd := ContainerdShell
+		output = SSHConfig.CmdToString(h, cmd, " ")
+	} else {
+		cmd := DockerShell
+		output = SSHConfig.CmdToString(h, cmd, " ")
+	}
+	output = strings.TrimSpace(output)
+	logger.Info("cgroup driver is %s", output)
+	return output
+}
+
+
 //KubeadmConfigInstall
-func (p *PrinceInstaller)  KubeadmConfigInstall() {
+func (x *PrinceInstaller)  KubeadmConfigInstall() {
 	var templateData string
+	CgroupDriver = x.getCgroupDriverFromShell(x.Masters[0])
 	if KubeadmFile == "" {
 			templateData = string(Template())
 	} else {
@@ -78,7 +94,7 @@ func (p *PrinceInstaller)  KubeadmConfigInstall() {
 	}
 	cmd := fmt.Sprintf(`echo "%s" > /root/kubeadm-config.yaml`, templateData)
 	//cmd := "echo \"" + templateData + "\" > /root/kubeadm-config.yaml"
-	_ = SSHConfig.CmdAsync(p.Masters[0], cmd)
+	_ = SSHConfig.CmdAsync(x.Masters[0], cmd)
 	//读取模板数据
 	kubeadm := KubeadmDataFromYaml(templateData)
 	if kubeadm != nil {
@@ -129,7 +145,7 @@ func getDefaultSANs() []string {
 //
 //
 //}
-func (p *PrinceInstaller) to11911192(masters []string) (to11911192 bool) {
+func (x *PrinceInstaller) to11911192(masters []string) (to11911192 bool) {
 	// fix > 1.19.1 kube-controller-manager and kube-scheduler use the LocalAPIEndpoint instead of the ControlPlaneEndpoint.
 	if VersionToIntAll(Version) >= 1191 && VersionToIntAll(Version) <= 1192 {
 		for _, v := range masters {
@@ -147,7 +163,7 @@ sed -i 's/apiserver.cluster.local/%s/' %s`, KUBESCHEDULERCONFIGFILE, ip, KUBECON
 	return
 }
 
-func (p *PrinceInstaller) sendNewCertAndKey(Hosts []string) {
+func (x *PrinceInstaller) sendNewCertAndKey(Hosts []string) {
 	var wg sync.WaitGroup
 	for _, node := range Hosts {
 		wg.Add(1)
@@ -160,20 +176,20 @@ func (p *PrinceInstaller) sendNewCertAndKey(Hosts []string) {
 }
 
 //SendKubeConfigs
-func (p *PrinceInstaller) SendKubeConfigs(masters []string) {
-	p.sendKubeConfigFile(masters, "kubelet.conf")
-	p.sendKubeConfigFile(masters, "admin.conf")
-	p.sendKubeConfigFile(masters, "controller-manager.conf")
-	p.sendKubeConfigFile(masters, "scheduler.conf")
+func (x *PrinceInstaller) SendKubeConfigs(masters []string) {
+	x.sendKubeConfigFile(masters, "kubelet.conf")
+	x.sendKubeConfigFile(masters, "admin.conf")
+	x.sendKubeConfigFile(masters, "controller-manager.conf")
+	x.sendKubeConfigFile(masters, "scheduler.conf")
 
-	if p.to11911192(masters) {
+	if x.to11911192(masters) {
 		logger.Info("set 1191 1192 config")
 	}
 }
 
-func (p *PrinceInstaller) appendApiServer() error {
+func (x *PrinceInstaller) appendApiServer() error {
 	etcHostPath := "/etc/hosts"
-	etcHostMap := fmt.Sprintf("%s %s", IpFormat(p.Masters[0]), ApiServer)
+	etcHostMap := fmt.Sprintf("%s %s", IpFormat(x.Masters[0]), ApiServer)
 	file, err := os.OpenFile(etcHostPath, os.O_RDWR|os.O_APPEND, 0666)
 	if err != nil {
 		os.Exit(1)
@@ -316,7 +332,7 @@ func (x *PrinceInstaller) JoinMasters(masters []string) {
 	x.SendJoinMasterKubeConfigs(masters)
 	x.sendNewCertAndKey(masters)
 	// send CP nodes configuration
-	sendJoinCPConfig(masters)
+	x.sendJoinCPConfig(masters)
 
 	//join master do sth
 	cmd := x.Command(Version, JoinMaster)
@@ -344,13 +360,14 @@ func (x *PrinceInstaller) JoinMasters(masters []string) {
 }
 
 // sendJoinCPConfig send join CP nodes configuration
-func sendJoinCPConfig(joinMaster []string) {
+func (x *PrinceInstaller)sendJoinCPConfig(joinMaster []string) {
 	var wg sync.WaitGroup
 	for _, master := range joinMaster {
 		wg.Add(1)
 		go func(master string) {
 			defer wg.Done()
-			templateData := string(JoinTemplate(IpFormat(master)))
+			cgroup := x.getCgroupDriverFromShell(master)
+			templateData := string(JoinTemplate(IpFormat(master),cgroup))
 			cmd := fmt.Sprintf(`echo "%s" > /root/kubeadm-join-config.yaml`, templateData)
 			_ = SSHConfig.CmdAsync(master, cmd)
 		}(master)
@@ -359,18 +376,19 @@ func sendJoinCPConfig(joinMaster []string) {
 }
 
 //join node
-func (s *PrinceInstaller) JoinNodes() {
+func (x *PrinceInstaller) JoinNodes() {
 	var masters string
 	var wg sync.WaitGroup
-	for _, master := range s.Masters {
+	for _, master := range x.Masters {
 		masters += fmt.Sprintf(" --rs %s:6443", IpFormat(master))
 	}
 	ipvsCmd := fmt.Sprintf("kubeprince ipvs --vs %s:6443 %s --health-path /healthz --health-schem https --run-once", VIP, masters)
-	templateData := string(JoinTemplate(""))
-	for _, node := range s.Nodes {
+	for _, node := range x.Nodes {
 		wg.Add(1)
 		go func(node string) {
 			defer wg.Done()
+			cgroup := x.getCgroupDriverFromShell(node)
+			templateData := string(JoinTemplate("", cgroup))
 			// send join node config
 			cmdJoinConfig := fmt.Sprintf(`echo "%s" > /root/kubeadm-join-config.yaml`, templateData)
 			_ = SSHConfig.CmdAsync(node, cmdJoinConfig)
@@ -388,12 +406,12 @@ func (s *PrinceInstaller) JoinNodes() {
 			}
 
 			_ = SSHConfig.CmdAsync(node, ipvsCmd) // create ipvs rules before we join node
-			cmd := s.Command(Version, JoinNode)
-			//create lvscare static pod
+			cmd := x.Command(Version, JoinNode)
+			//create lvsucc static pod
 			yaml := ipvs.LvsStaticPodYaml(VIP, Masters, LvsuccImage)
 			_ = SSHConfig.CmdAsync(node, cmd)
 			_ = SSHConfig.Cmd(node, "mkdir -p /etc/kubernetes/manifests")
-			SSHConfig.CopyConfigFile(node, "/etc/kubernetes/manifests/kube-sealyun-lvscare.yaml", []byte(yaml))
+			SSHConfig.CopyConfigFile(node, "/etc/kubernetes/manifests/kube-lvsucc.yaml", []byte(yaml))
 
 			cleaninstall := `rm -rf /root/kube`
 			_ = SSHConfig.CmdAsync(node, cleaninstall)

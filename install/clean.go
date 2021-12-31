@@ -182,6 +182,18 @@ func clean(host string) {
 	_ = SSHConfig.CmdAsync(host, cmd)
 	cmd = fmt.Sprint("ipvsadm --clear")
 	_ = SSHConfig.CmdAsync(host, cmd)
+	cmd = fmt.Sprint(" PID=$(netstat -nlp | grep \":6443\" | awk '{print $7}' | awk -F '[ / ]' '{print $1}');set +m kill -9 $PID  >&1 >/dev/null")
+	_ = SSHConfig.CmdAsync(host, cmd)
+	cmd = fmt.Sprint(" PID=$(netstat -nlp | grep \":10259\" | awk '{print $7}' | awk -F '[ / ]' '{print $1}');set +m kill -9 $PID  >&1 >/dev/null")
+	_ = SSHConfig.CmdAsync(host, cmd)
+	cmd = fmt.Sprint(" PID=$(netstat -nlp | grep \":2379\" | awk '{print $7}' | awk -F '[ / ]' '{print $1}');set +m kill -9 $PID >&1  >/dev/null")
+	_ = SSHConfig.CmdAsync(host, cmd)
+	cmd = fmt.Sprint(" PID=$(netstat -nlp | grep \":10251\" | awk '{print $7}' | awk -F '[ / ]' '{print $1}');set +m kill -9 $PID >&1  >/dev/null")
+	_ = SSHConfig.CmdAsync(host, cmd)
+	cmd = fmt.Sprint(" PID=$(netstat -nlp | grep \":10257\" | awk '{print $7}' | awk -F '[ / ]' '{print $1}');set +m kill -9 $PID  >&1 >/dev/null")
+	_ = SSHConfig.CmdAsync(host, cmd)
+	cmd = fmt.Sprint(" PID=$(netstat -nlp | grep \":10252\" | awk '{print $7}' | awk -F '[ / ]' '{print $1}');set +m kill -9 $PID  >&1 >/dev/null")
+	_ = SSHConfig.CmdAsync(host, cmd)
 }
 
 func cleanRoute(node string) {

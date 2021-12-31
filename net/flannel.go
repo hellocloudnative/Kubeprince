@@ -15,8 +15,8 @@ func (f Flannel) Manifests(template string) string {
 		f.metadata.CIDR = defaultCIDR
 	}
 
-	if f.metadata.CniRepo == "" || f.metadata.CniRepo == "k8s.gcr.io" {
-		f.metadata.CniRepo = "quay.io.azk8s.cn/coreos"
+	if f.metadata.CniRepo == "" || f.metadata.CniRepo == "harbor.sh.deepin.com/amd64" {
+		f.metadata.CniRepo = "harbor.sh.deepin.com/amd64"
 	}
 
 	return render(f.metadata, template)
@@ -202,7 +202,7 @@ spec:
       serviceAccountName: flannel
       initContainers:
       - name: install-cni
-        image: {{ .CniRepo }}/flannel:v0.11.0-amd64
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - cp
         args:
@@ -216,7 +216,7 @@ spec:
           mountPath: /etc/kube-flannel/
       containers:
       - name: kube-flannel
-        image: {{ .CniRepo }}/flannel:v0.11.0-amd64
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - /opt/bin/flanneld
         args:
@@ -297,7 +297,7 @@ spec:
       serviceAccountName: flannel
       initContainers:
       - name: install-cni
-        image: {{ .CniRepo }}/flannel:v0.11.0-arm64
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - cp
         args:
@@ -311,7 +311,7 @@ spec:
           mountPath: /etc/kube-flannel/
       containers:
       - name: kube-flannel
-        image: {{ .CniRepo }}/flannel:v0.11.0-arm64
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - /opt/bin/flanneld
         args:
@@ -392,7 +392,7 @@ spec:
       serviceAccountName: flannel
       initContainers:
       - name: install-cni
-        image: {{ .CniRepo }}/flannel:v0.11.0-arm
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - cp
         args:
@@ -406,7 +406,7 @@ spec:
           mountPath: /etc/kube-flannel/
       containers:
       - name: kube-flannel
-        image: {{ .CniRepo }}/flannel:v0.11.0-arm
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - /opt/bin/flanneld
         args:
@@ -487,7 +487,7 @@ spec:
       serviceAccountName: flannel
       initContainers:
       - name: install-cni
-        image: {{ .CniRepo }}/flannel:v0.11.0-ppc64le
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - cp
         args:
@@ -501,7 +501,7 @@ spec:
           mountPath: /etc/kube-flannel/
       containers:
       - name: kube-flannel
-        image: {{ .CniRepo }}/flannel:v0.11.0-ppc64le
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - /opt/bin/flanneld
         args:
@@ -582,7 +582,7 @@ spec:
       serviceAccountName: flannel
       initContainers:
       - name: install-cni
-        image: {{ .CniRepo }}/flannel:v0.11.0-s390x
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - cp
         args:
@@ -596,7 +596,7 @@ spec:
           mountPath: /etc/kube-flannel/
       containers:
       - name: kube-flannel
-        image: {{ .CniRepo }}/flannel:v0.11.0-s390x
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - /opt/bin/flanneld
         args:
@@ -810,7 +810,7 @@ spec:
       serviceAccountName: flannel
       initContainers:
       - name: install-cni
-        image: {{ .CniRepo }}/flannel:v0.13.1-rc1
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - cp
         args:
@@ -824,7 +824,7 @@ spec:
           mountPath: /etc/kube-flannel/
       containers:
       - name: kube-flannel
-        image: {{ .CniRepo }}/flannel:v0.13.1-rc1
+        image: {{ .CniRepo }}/flannel:uos
         command:
         - /opt/bin/flanneld
         args:

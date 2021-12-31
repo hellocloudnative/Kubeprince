@@ -10,25 +10,37 @@ var exampleInit = `
 	# init with password with three master one node
 	kubeprince init --passwd your-server-password  \
 	--master 192.168.0.2 --master 192.168.0.3 --master 192.168.0.4 \
-	--node 192.168.0.5 --user root \
-	--version v1.18.0 --pkg-url=/root/kube1.18.5.tar.gz 
+	--node 192.168.0.5 --user root  --containers docker \
+	--version v1.18.5 --pkg-url=/root/ucc2.0-kube1.18.5-amd64.tar.gz 
 	
 	# init with pk-file , when your server have different password
-	kubeprince init --pk /root/.ssh/id_rsa \
+	kubeprince init --pk /root/.ssh/id_rsa  --containers docker\
 	--master 192.168.0.2 --node 192.168.0.5 --user root \
-	--version v1.18.0 --pkg-url=/root/kube1.18.5.tar.gz 
+	--version v1.18.5  --pkg-url=/root/ucc2.0-kube1.18.5-amd64.tar.gz 
+   
+   # init with docker
+	kubeprince init --passwd your-server-password  \
+	--master 192.168.0.2 --master 192.168.0.3 --master 192.168.0.4 \
+	--node 192.168.0.5 --user root  --containers docker \
+	--version v1.18.5 --pkg-url=/root/ucc2.0-kube1.18.5-amd64.tar.gz 
+   
+   # init with isulad
+	kubeprince init --passwd your-server-password  \
+	--master 192.168.0.2 --master 192.168.0.3 --master 192.168.0.4 \
+	--node 192.168.0.5 --user root  --containers isulad \
+	--version v1.18.5 --pkg-url=/root/ucc2.0-kube1.18.5-amd64.tar.gz
 
 	# when use multi network. set a can-reach with --interface 
  	kubeprince init --interface 192.168.0.254 \
 	--master 192.168.0.2 --master 192.168.0.3 --master 192.168.0.4 \
 	--node 192.168.0.5 --user root --passwd your-server-password \
-	--version v1.18.0 --pkg-url=/root/kube1.18.5.tar.gz 
+	--version v1.18.0 --pkg-url=/root/ucc2.0-kube1.18.5-amd64.tar.gz 
 	
 	# when your interface is not "eth*|en*|em*" like.
 	kubeprince init --interface your-interface-name \
 	--master 192.168.0.2 --master 192.168.0.3 --master 192.168.0.4 \
 	--node 192.168.0.5 --user root --passwd your-server-password \
-	--version v1.18.0 --pkg-url=/root/kube1.18.5.tar.gz 
+	--version v1.18.0 --pkg-url=/root/ucc2.0-kube1.18.5-amd64.tar.gz 
 `
 var initCmd = &cobra.Command{
 	Use:   "init",
@@ -76,7 +88,7 @@ func init()  {
 	initCmd.Flags().StringVar(&install.PodCIDR, "podcidr", "100.64.0.0/10", "Specify range of IP addresses for the pod network")
 	initCmd.Flags().StringVar(&install.SvcCIDR, "svccidr", "10.96.0.0/12", "Use alternative range of IP address for service VIPs")
 	initCmd.Flags().BoolVar(&install.WithoutCNI, "without-cni", false, "If true we not install cni plugin")
-	initCmd.Flags().StringVar(&install.Network, "network", "calico", "cni plugin, calico..")
+	initCmd.Flags().StringVar(&install.Network, "network", "flannel", "cni plugin, flannlel，calico..")
 	initCmd.Flags().StringVar(&install.Interface, "interface", "eth.*|en.*|em.*", "name of network interface, when use calico IP_AUTODETECTION_METHOD, set your ipv4 with can-reach=192.168.0.1")
 	initCmd.Flags().BoolVar(&install.BGP, "bgp", false, "bgp mode enable, calico..")
 	initCmd.Flags().StringVar(&install.MTU, "mtu", "1440", "mtu of the ipip mode , calico..")
