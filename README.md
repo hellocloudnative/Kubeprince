@@ -160,7 +160,14 @@ tar包的目录结构对应kube文件夹，如下:
     └── update.sh
 
 ```
+#### 添加master节点
 
+```shell
+kubeprince join
+    --master 192.168.0.2 \
+    --master 192.168.0.3 \
+    --containers  docker
+```
 #### 添加node节点
 
 ```shell
@@ -168,16 +175,20 @@ kubeprince join
     --master 192.168.0.2 \
     --master 192.168.0.3 \
     --master 192.168.0.4 \
-    --vip 10.103.97.2 \
     --node 192.168.0.5 \
-    --user root \
-    --password your-server-password \
-    --pkg-url /root/ucc-kube1.18.5-amd64.tar.gz
+    --containers  docker
 ```
 
 ### 清理
 
 ```shell
+#强制清理所有节点
+kubeprince clean  --all  -f
+#清理master节点
+kubeprince clean  --master  -f
+#清理node节点
+kubeprince  clean --node
+#清理所有节点
 kubeprince clean --all
 ```
 
@@ -188,6 +199,5 @@ kubeprince clean --all
 
 2.添加配置文件部署选项。
 
-3.多种cni插件选择
 
 
