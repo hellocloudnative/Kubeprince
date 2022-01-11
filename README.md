@@ -75,8 +75,10 @@ kubeprince init --master 192.168.0.2 \
     --node 192.168.0.5 \
     --user root \
     --password your-server-password \
+    --containers docker\             
+    --network flannel  \              
     --version v1.18.5 \
-    --pkg-url /root/ucc-kube1.18.5-amd64.tar.gz
+    --pkg-url /root/ucc2.0-kube1.18.5-amd64.tar.gz
 ```
 
 
@@ -88,10 +90,12 @@ kubeprince init --master 192.168.0.2 \
     --master 192.168.0.3 \
     --master 192.168.0.4 \
     --node 192.168.0.5 \
+    --containers docker\             
+    --network flannel  \   
     --user root \
     --password your-server-password \
     --version v1.18.5 \
-    --pkg-url /root/ucc-kube1.18.5-amd64.tar.gz
+    --pkg-url /root/ucc2.0-kube1.18.5-amd64.tar.gz
 
 ```
 参数含义：
@@ -101,8 +105,11 @@ kubeprince init --master 192.168.0.2 \
 --node     node服务器地址列表
 --user     服务器ssh用户名
 --password   服务器ssh用户密码
+--containers  docker，isulad
+--network   flannel，calico，cilium
 --pkg-url  离线包位置，可以放在本地目录，也可以放在一个http服务器上
 --version  kubernetes版本
+--repo  harbor.sh.deepin.com/amd64，harbor.sh.deepin.com/arm64 ...
 --pk       ssh私钥地址，配置免密钥默认就是/root/.ssh/id_rsa
 --vip      virtual ip (default "10.103.97.2") 本地负载时虚拟ip，不推荐修改，集群外不可访问
 ```
