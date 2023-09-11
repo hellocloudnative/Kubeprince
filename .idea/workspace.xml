@@ -1,28 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="3091eca6-5279-4d70-a30e-dff10a98921f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/kube/Metadata" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/bin/kubelet-pre-start.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/conf/10-kubeadm.conf.docker" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/conf/10-kubeadm.conf.isulad" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/conf/calico.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/conf/daemon.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/conf/kubeadm.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/conf/kubelet.service" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/images/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/isulad/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/docker.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/init-docker.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/init-isulad.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/init-kube-docker.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/init-kube-isulad.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/isulad.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/killport.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/master.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/kube/shell/update.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Kubeprince.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Kubeprince.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/github.com/pkg/errors/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/github.com/pkg/errors/.travis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/github.com/pkg/errors/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/github.com/pkg/errors/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/github.com/pkg/errors/errors.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/github.com/pkg/errors/errors.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/github.com/pkg/errors/stack.go" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/github.com/pkg/errors/stack.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/modules.txt" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/modules.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +27,7 @@
       </list>
     </option>
   </component>
-  <component name="GOROOT" path="/usr/local/go" />
+  <component name="GOROOT" url="file:///usr/local/go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -48,30 +39,30 @@
       </list>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="1welR6KDjMH3PlP6JpBaR0fnTQd" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="DefaultGoTemplateProperty" value="Go File" />
-    <property name="GO_FMT" value="true" />
-    <property name="SearchEverywhereHistoryKey" value="decompressing&#9;null&#9;null" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="configurable.Global.GOPATH.is.expanded" value="true" />
-    <property name="configurable.Module.GOPATH.is.expanded" value="false" />
-    <property name="configurable.Project.GOPATH.is.expanded" value="true" />
-    <property name="go.gopath.indexing.explicitly.defined" value="true" />
-    <property name="go.import.settings.migrated" value="true" />
-    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="go.vendoring.notification.had.been.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/kube/isulad" />
-    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="go.vgo" />
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.vendoring.notification.had.been.shown": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "go.import.settings.migrated": "true",
+    "last_opened_file_path": "/Users/zhangpengxuan",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "settings.editor.selected.configurable": "go.vgo"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/kube/isulad" />
@@ -86,91 +77,88 @@
       <recent name="$PROJECT_DIR$/main" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Build.go build test.go (1)">
+  <component name="RunManager" selected="Go 构建.go build main.go (1)">
     <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="Kubeprince" />
       <working_directory value="$PROJECT_DIR$/" />
       <go_parameters value="-i" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/" />
       <package value="Prince" />
       <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
     <configuration name="go build init.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Kubeprince" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/install/init.go" />
       <package value="Prince" />
       <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/install/init.go" />
       <method v="2" />
     </configuration>
     <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Kubeprince" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/main.go" />
       <package value="Prince" />
       <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/main.go" />
       <method v="2" />
     </configuration>
     <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Kubeprince" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/main/main.go" />
       <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/main/main.go" />
       <method v="2" />
     </configuration>
     <configuration name="go build test2.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Kubeprince" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/main/test2.go" />
       <package value="Prince" />
       <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/main/test2.go" />
       <method v="2" />
     </configuration>
     <configuration name="go build test.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="Kubeprince" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/test.go" />
       <package value="Prince" />
       <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/test.go" />
       <method v="2" />
     </configuration>
     <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
       <module name="Kubeprince" />
       <working_directory value="$PROJECT_DIR$/" />
       <go_parameters value="-i" />
-      <framework value="gotest" />
       <kind value="DIRECTORY" />
       <package value="Prince" />
       <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <framework value="gotest" />
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Build.go build main.go" />
-      <item itemvalue="Go Build.go build test2.go" />
-      <item itemvalue="Go Build.go build main.go (1)" />
-      <item itemvalue="Go Build.go build test.go (1)" />
-      <item itemvalue="Go Build.go build init.go" />
+      <item itemvalue="Go 构建.go build init.go" />
+      <item itemvalue="Go 构建.go build main.go (1)" />
+      <item itemvalue="Go 构建.go build main.go" />
+      <item itemvalue="Go 构建.go build test2.go" />
+      <item itemvalue="Go 构建.go build test.go (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build test.go (1)" />
-        <item itemvalue="Go Build.go build main.go (1)" />
-        <item itemvalue="Go Build.go build init.go" />
-        <item itemvalue="Go Build.go build main.go" />
-        <item itemvalue="Go Build.go build test2.go" />
+        <item itemvalue="Go 构建.go build main.go (1)" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -189,43 +177,8 @@
     <MESSAGE value="提交" />
     <option name="LAST_COMMIT_MESSAGE" value="提交" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="1115" y="228" width="460" height="582" key="#Build_Tags_&amp;_Vendoring" timestamp="1629080906773">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="1115" y="228" width="460" height="582" key="#Build_Tags_&amp;_Vendoring/0.25.1920.1055@0.25.1920.1055" timestamp="1629080906773" />
-    <state x="836" y="358" key="#Go_Modules" timestamp="1628840814216">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="836" y="358" key="#Go_Modules/0.25.1920.1055@0.25.1920.1055" timestamp="1628840814216" />
-    <state x="647" y="256" key="#Inspections" timestamp="1629078479430">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="647" y="256" key="#Inspections/0.25.1920.1055@0.25.1920.1055" timestamp="1629078479430" />
-    <state x="622" y="150" width="800" height="723" key="#Intentions" timestamp="1629081299556">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="622" y="150" width="800" height="723" key="#Intentions/0.25.1920.1055@0.25.1920.1055" timestamp="1629081299556" />
-    <state x="839" y="210" key="#go_build_test.go_(1)" timestamp="1629086637692">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="839" y="210" key="#go_build_test.go_(1)/0.25.1920.1055@0.25.1920.1055" timestamp="1629086637692" />
-    <state x="543" y="95" key="CommitChangelistDialog2" timestamp="1630651916129">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="543" y="95" key="CommitChangelistDialog2/0.25.1920.1055@0.25.1920.1055" timestamp="1630651916129" />
-    <state x="522" y="210" key="SettingsEditor" timestamp="1629769520503">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="522" y="210" key="SettingsEditor/0.25.1920.1055@0.25.1920.1055" timestamp="1629769520503" />
-    <state x="642" y="233" key="Vcs.Push.Dialog.v2" timestamp="1630651919304">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="642" y="233" key="Vcs.Push.Dialog.v2/0.25.1920.1055@0.25.1920.1055" timestamp="1630651919304" />
-    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup" timestamp="1631502964338">
-      <screen x="0" y="25" width="1920" height="1055" />
-    </state>
-    <state x="701" y="168" width="670" height="676" key="search.everywhere.popup/0.25.1920.1055@0.25.1920.1055" timestamp="1631502964338" />
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -254,11 +207,6 @@
           <url>file://$PROJECT_DIR$/install/config.go</url>
           <line>443</line>
           <option name="timeStamp" value="22" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/install/tools.go</url>
-          <line>738</line>
-          <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/install/clean.go</url>
